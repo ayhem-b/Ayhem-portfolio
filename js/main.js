@@ -8,30 +8,24 @@ if (qf) qf.addEventListener('submit', function (e) {
   const contact = document.getElementById('qf-contact').value;
   const type = document.getElementById('qf-type').value;
   const message = document.getElementById('qf-msg').value;
-  const subject = encodeURIComponent('Quote Request — ' + type);
+  const subject = encodeURIComponent(I18N.t('js.mail.subject') + type);
   const body = encodeURIComponent(
-    'Name: ' + name + '\n' +
-    'Contact: ' + contact + '\n' +
-    'Project Type: ' + type + '\n\n' +
-    'Details:\n' + message
+    I18N.t('js.mail.name') + ': ' + name + '\n' +
+    I18N.t('js.mail.contact') + ': ' + contact + '\n' +
+    I18N.t('js.mail.type') + ': ' + type + '\n\n' +
+    I18N.t('js.mail.details') + ':\n' + message
   );
   window.location.href = 'mailto:belkhamsaayhem09@gmail.com?subject=' + subject + '&body=' + body;
 });
 
 /* ---------- HMI typing readout ---------- */
 const readout = document.getElementById('readout');
-const messages = [
-  'SYSTEM READY',
-  'PLC LOGIC: COMPILED',
-  'VISION INSPECTION: PASS',
-  'SERVO AXES: HOMED',
-  'STANDING BY FOR NEXT WORK ORDER'
-];
+let messages = I18N.t('js.hmi');
+let mi = 0;
 if (readout) {
   if (reduce) {
     readout.textContent = messages[0];
   } else {
-    let mi = 0;
     const typeText = (text, done) => {
       readout.textContent = '';
       let j = 0;
@@ -47,9 +41,10 @@ if (readout) {
 
 /* ---------- Rotating role line ---------- */
 const rot = document.getElementById('rotator');
-const roles = ['Machine Builder', 'PLC Programmer', 'Retrofit Specialist', 'Vision & Robotics Integrator'];
+let roles = I18N.t('js.roles');
+let ri = 0;
+if (rot) rot.textContent = roles[0];
 if (rot && !reduce) {
-  let ri = 0;
   setInterval(() => {
     rot.classList.add('swap');
     setTimeout(() => {
@@ -59,6 +54,15 @@ if (rot && !reduce) {
     }, 350);
   }, 2600);
 }
+
+/* Language switch: restart the readout and role line in the new language.
+   (i18n.js has already rewritten the static text, including #readout.) */
+document.addEventListener('langchange', () => {
+  messages = I18N.t('js.hmi'); mi = 0;
+  roles = I18N.t('js.roles'); ri = 0;
+  if (rot) rot.textContent = roles[0];
+  if (readout && reduce) readout.textContent = messages[0];
+});
 
 /* ---------- Scroll reveal (staggered) ---------- */
 const revealSel = '.hero .tag-row, .hero h1, .hero .role, .hero .trust-line, .hero .hero-cta, .hmi, .sec-head, .sec-desc, .spec-card, .ticket, .step, .diag-item, .photo-grid figure, .cta-banner-inner, .contact-grid > *';

@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ayhem Belkhamsa — Industrial Automation Engineer &amp; Machine Builder</title>
-<meta name="description" content="Ayhem Belkhamsa - industrial automation engineer and machine builder in Bizerte and Menzel Bourguiba, Tunisia. PLC and control panel retrofits, custom machines, HMI and data systems, vision and robotics integration.">
-<meta property="og:title" content="Ayhem Belkhamsa - Industrial Automation Engineer &amp; Machine Builder">
-<meta property="og:description" content="Ayhem Belkhamsa - industrial automation engineer and machine builder in Bizerte and Menzel Bourguiba, Tunisia. PLC and control panel retrofits, custom machines, HMI and data systems, vision and robotics integration.">
+<title>Ayhem Belkhamsa — Ingénieur en automatisation industrielle &amp; constructeur de machines</title>
+<meta name="description" content="Ayhem Belkhamsa - ingénieur en automatisation industrielle et constructeur de machines à Bizerte et Menzel Bourguiba, Tunisie. Rétrofit d'automates et d'armoires électriques, machines spéciales, IHM et systèmes de données, intégration vision et robotique.">
+<meta property="og:title" content="Ayhem Belkhamsa — Ingénieur en automatisation industrielle &amp; constructeur de machines">
+<meta property="og:description" content="Ayhem Belkhamsa - ingénieur en automatisation industrielle et constructeur de machines à Bizerte et Menzel Bourguiba, Tunisie. Rétrofit d'automates et d'armoires électriques, machines spéciales, IHM et systèmes de données, intégration vision et robotique.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/images/tensile-rig-finished.jpg">
 <meta name="theme-color" content="#12171A">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add("js")</script>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  /* Set language + direction before first paint so RTL never flashes. Text is swapped by js/i18n.js. */
+  (function () {
+    var l = 'fr';
+    try {
+      var q = new URLSearchParams(location.search).get('lang'), s = localStorage.getItem('lang');
+      l = /^(fr|en|ar)$/.test(q) ? q : /^(fr|en|ar)$/.test(s) ? s : 'fr';
+    } catch (e) {}
+    document.documentElement.lang = l;
+    document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.classList.add('js');
+  })();
+</script>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -26,13 +38,20 @@
     <nav>
       <div class="logo">AYHEM<span>.</span>BELKHAMSA</div>
       <ul class="navlinks">
-        <li><a href="#gallery">The Work</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#log">Project Log</a></li>
-        <li><a href="#process">How We Work</a></li>
-        <li><a href="#gallery">Workshop</a></li>
+        <li><a href="#gallery" data-i18n="nav.work">Réalisations</a></li>
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#log" data-i18n="nav.log">Journal de projets</a></li>
+        <li><a href="#process" data-i18n="nav.process">Notre méthode</a></li>
+        <li><a href="#gallery" data-i18n="nav.workshop">Atelier</a></li>
       </ul>
-      <a class="btn btn-primary nav-cta" href="#contact">Get a Quote</a>
+      <div class="nav-right">
+        <div class="lang" role="group" aria-label="Langue" data-i18n-label="lang.label">
+          <button type="button" data-lang="fr" lang="fr" aria-pressed="true">FR</button>
+          <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
+          <button type="button" data-lang="ar" lang="ar" aria-pressed="false">عربي</button>
+        </div>
+        <a class="btn btn-primary nav-cta" href="#contact" data-i18n="nav.cta">Demander un devis</a>
+      </div>
     </nav>
   </div>
 </header>
@@ -41,34 +60,34 @@
   <section class="hero">
     <div class="wrap">
       <div class="tag-row">
-        <span class="tag">● System Online</span>
-        <span class="tag">Bizerte · Menzel Bourguiba · Tunisia</span>
+        <span class="tag" data-i18n="hero.tag1">● Système en ligne</span>
+        <span class="tag" data-i18n="hero.tag2">Bizerte · Menzel Bourguiba · Tunisie</span>
         <span class="tag tag-edu">Polytechnique Internationale · ISET Bizerte</span>
       </div>
       <div class="hero-grid">
         <div>
-          <h1>Ayhem<br>Belkhamsa<span class="line2"><span id="rotator">Machine Builder</span></span></h1>
-          <p class="role">
-            <b>Industrial automation engineer &amp; auto‑entrepreneur</b> building, retrofitting, and commissioning
-            special machines across Tunisia's northern industrial hubs — from PLC cabinets rewired ground‑up
-            to vision‑guided robots running in production.
+          <h1><span data-i18n="hero.name">Ayhem<br>Belkhamsa</span><span class="line2"><span id="rotator">Constructeur de machines</span></span></h1>
+          <p class="role" data-i18n="hero.role">
+            <b>Ingénieur en automatisation industrielle &amp; auto‑entrepreneur</b> — je conçois, rétrofite et mets en service
+            des machines spéciales dans les pôles industriels du nord de la Tunisie : des armoires d'automates recâblées de zéro
+            aux robots guidés par vision qui tournent en production.
           </p>
-          <p class="trust-line">Independent operator — you talk directly with the engineer who diagnoses your line, quotes the job, and builds it. No account managers in between.</p>
+          <p class="trust-line" data-i18n="hero.trust">Indépendant — vous parlez directement à l'ingénieur qui diagnostique votre ligne, chiffre le travail et le réalise. Pas d'intermédiaire commercial.</p>
           <div class="hero-cta">
-            <a class="btn btn-primary" href="#contact">Request a Quote ↗</a>
-            <a class="btn btn-ghost" href="#gallery">See the Work ↓</a>
+            <a class="btn btn-primary" href="#contact" data-i18n="hero.cta1">Demander un devis ↗</a>
+            <a class="btn btn-ghost" href="#gallery" data-i18n="hero.cta2">Voir les réalisations ↓</a>
           </div>
         </div>
 
         <div class="frame hmi">
-          <div class="hmi-head"><span><span class="dot"></span> HMI — LIVE STATUS</span><span>REV.03</span></div>
+          <div class="hmi-head"><span><span class="dot"></span> <span data-i18n="hmi.head">IHM — ÉTAT EN DIRECT</span></span><span>REV.03</span></div>
           <div class="hmi-body">
-            <div class="hmi-readout" id="readout">INITIALIZING…</div>
+            <div class="hmi-readout" id="readout" data-i18n="hmi.init">INITIALISATION…</div>
             <div class="hmi-rows">
-              <div class="hmi-row"><span>PLC PLATFORMS</span><span>MITSUBISHI FX / SIEMENS S7</span></div>
-              <div class="hmi-row"><span>DRIVES</span><span>YASKAWA / COOLMAY VFD</span></div>
-              <div class="hmi-row"><span>ROBOTICS</span><span>6‑DOF · DELTA · P&amp;P</span></div>
-              <div class="hmi-row"><span>I/O ACTIVITY</span><span class="io" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+              <div class="hmi-row"><span data-i18n="hmi.k1">PLATEFORMES API</span><span>MITSUBISHI FX / SIEMENS S7</span></div>
+              <div class="hmi-row"><span data-i18n="hmi.k2">VARIATEURS</span><span>YASKAWA / COOLMAY VFD</span></div>
+              <div class="hmi-row"><span data-i18n="hmi.k3">ROBOTIQUE</span><span>6‑DOF · DELTA · P&amp;P</span></div>
+              <div class="hmi-row"><span data-i18n="hmi.k4">ACTIVITÉ E/S</span><span class="io" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
             </div>
           </div>
         </div>
@@ -82,22 +101,22 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">01</span>
-        <h2 class="sec-title">The Work</h2>
+        <h2 class="sec-title" data-i18n="sec.work">Réalisations</h2>
         <div class="sec-rule"></div>
       </div>
-      <p class="sec-desc" style="margin-top:-16px;">Real machines, real cabinets, real builds — photographed on my own jobs. Click any photo to enlarge.</p>
+      <p class="sec-desc" style="margin-top:-16px;" data-i18n="gallery.desc">De vraies machines, de vraies armoires, de vrais chantiers — photographiés sur mes propres interventions. Cliquez sur une photo pour l'agrandir.</p>
       <div class="photo-grid">
-        <figure class="frame g-tall g-video"><video src="assets/video/work-in-progress-reel.mp4" poster="assets/images/work-in-progress-reel-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Work in progress reel: workshop floor, delta robot cell, machine wiring and CNC work"></video><figcaption>Work in progress — on the shop floor</figcaption></figure>
-        <figure class="frame g-tall"><img src="assets/images/tensile-rig-finished.jpg" alt="Finished tensile testing rig with its control box" loading="eager"><figcaption>Tensile rig — built &amp; commissioned</figcaption></figure>
-        <figure class="frame g-tall"><img src="assets/images/pick-and-place-cell.jpg" alt="Programming a pick and place cell on site" loading="eager"><figcaption>Programming a pick &amp; place cell on‑site</figcaption></figure>
-        <figure class="frame"><img src="assets/images/control-cabinet-retrofit.jpg" alt="Inside a control cabinet during a retrofit" loading="lazy"><figcaption>Inside a control cabinet mid‑retrofit</figcaption></figure>
-        <figure class="frame"><img src="assets/images/vision-inspection-setup.jpg" alt="Setting up a machine vision inspection camera" loading="lazy"><figcaption>Setting up a vision inspection camera</figcaption></figure>
-        <figure class="frame"><img src="assets/images/cell-3d-layout.jpg" alt="3D layout of an automated cell during the design phase" loading="lazy"><figcaption>3D layout during the design phase</figcaption></figure>
-        <figure class="frame"><img src="assets/images/legacy-machine-close.jpg" alt="A legacy machine on the shop floor ahead of an automation upgrade" loading="lazy"><figcaption>Legacy machine, ahead of an upgrade</figcaption></figure>
-        <figure class="frame"><img src="assets/images/controller-commissioning.jpg" alt="Motion controller and open cabinet during commissioning" loading="lazy"><figcaption>Controller &amp; cabinet, commissioning</figcaption></figure>
-        <figure class="frame"><img src="assets/images/vision-inspection-bench.jpg" alt="Machine vision camera and inspection software on the bench" loading="lazy"><figcaption>Vision inspection bench test</figcaption></figure>
-        <figure class="frame"><img src="assets/images/legacy-machine-wide.jpg" alt="Legacy production machine in a factory hall" loading="lazy"><figcaption>Legacy line before automation work</figcaption></figure>
-        <figure class="frame"><img src="assets/images/tensile-rig-schematic.jpg" alt="Control panel schematic for the tensile rig" loading="lazy"><figcaption>Panel schematic, tensile rig</figcaption></figure>
+        <figure class="frame g-tall g-video"><video src="assets/video/work-in-progress-reel.mp4" poster="assets/images/work-in-progress-reel-poster.jpg" autoplay muted loop playsinline controls preload="metadata" aria-label="Vidéo « travaux en cours » : atelier, cellule robot delta, câblage de machine et usinage CNC" data-i18n-label="gal.video.label"></video><figcaption data-i18n="gal.video">Travaux en cours — sur le terrain</figcaption></figure>
+        <figure class="frame g-tall"><img src="assets/images/tensile-rig-finished.jpg" alt="Banc d'essai de traction terminé avec son coffret de commande" data-i18n-alt="gal.1.alt" loading="eager"><figcaption data-i18n="gal.1">Banc de traction — construit &amp; mis en service</figcaption></figure>
+        <figure class="frame g-tall"><img src="assets/images/pick-and-place-cell.jpg" alt="Programmation d'une cellule pick and place sur site" data-i18n-alt="gal.2.alt" loading="eager"><figcaption data-i18n="gal.2">Programmation d'une cellule pick &amp; place sur site</figcaption></figure>
+        <figure class="frame"><img src="assets/images/control-cabinet-retrofit.jpg" alt="Intérieur d'une armoire de commande pendant un rétrofit" data-i18n-alt="gal.3.alt" loading="lazy"><figcaption data-i18n="gal.3">Intérieur d'une armoire en cours de rétrofit</figcaption></figure>
+        <figure class="frame"><img src="assets/images/vision-inspection-setup.jpg" alt="Installation d'une caméra d'inspection par vision industrielle" data-i18n-alt="gal.4.alt" loading="lazy"><figcaption data-i18n="gal.4">Mise en place d'une caméra d'inspection vision</figcaption></figure>
+        <figure class="frame"><img src="assets/images/cell-3d-layout.jpg" alt="Implantation 3D d'une cellule automatisée en phase de conception" data-i18n-alt="gal.5.alt" loading="lazy"><figcaption data-i18n="gal.5">Implantation 3D en phase de conception</figcaption></figure>
+        <figure class="frame"><img src="assets/images/legacy-machine-close.jpg" alt="Machine ancienne en atelier avant une modernisation" data-i18n-alt="gal.6.alt" loading="lazy"><figcaption data-i18n="gal.6">Machine ancienne, avant modernisation</figcaption></figure>
+        <figure class="frame"><img src="assets/images/controller-commissioning.jpg" alt="Contrôleur de mouvement et armoire ouverte pendant la mise en service" data-i18n-alt="gal.7.alt" loading="lazy"><figcaption data-i18n="gal.7">Contrôleur &amp; armoire, mise en service</figcaption></figure>
+        <figure class="frame"><img src="assets/images/vision-inspection-bench.jpg" alt="Caméra de vision industrielle et logiciel d'inspection sur le banc" data-i18n-alt="gal.8.alt" loading="lazy"><figcaption data-i18n="gal.8">Test vision sur banc</figcaption></figure>
+        <figure class="frame"><img src="assets/images/legacy-machine-wide.jpg" alt="Machine de production ancienne dans un hall d'usine" data-i18n-alt="gal.9.alt" loading="lazy"><figcaption data-i18n="gal.9">Ligne ancienne avant automatisation</figcaption></figure>
+        <figure class="frame"><img src="assets/images/tensile-rig-schematic.jpg" alt="Schéma de l'armoire de commande du banc de traction" data-i18n-alt="gal.10.alt" loading="lazy"><figcaption data-i18n="gal.10">Schéma d'armoire, banc de traction</figcaption></figure>
       </div>
     </div>
   </section>
@@ -106,34 +125,34 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">02</span>
-        <h2 class="sec-title">Services</h2>
+        <h2 class="sec-title" data-i18n="sec.services">Services</h2>
         <div class="sec-rule"></div>
       </div>
-      <p class="sec-desc" style="margin-top:-16px;">What you actually get, and what to expect from each type of job.</p>
+      <p class="sec-desc" style="margin-top:-16px;" data-i18n="services.desc">Ce que vous obtenez concrètement, et à quoi vous attendre pour chaque type d'intervention.</p>
       <div class="spec-grid services-grid">
         <div class="spec-card">
-          <h3><i>⏚</i> PLC &amp; Control Panel Retrofits</h3>
-          <p>Line down because of wiring nobody documented, or logic left half‑finished by a previous contractor? I trace the cabinet, rebuild it clean, and reprogram the logic from a known‑good baseline.</p>
-          <p><b style="color:var(--text)">You get:</b> a working line, a cabinet you can hand to any technician, and documentation of what changed.</p>
-          <a class="btn btn-ghost svc-cta" href="#contact">Request a Quote →</a>
+          <h3><i>⏚</i> <span data-i18n="svc1.title">Rétrofit d'automates &amp; d'armoires</span></h3>
+          <p data-i18n="svc1.p1">Ligne à l'arrêt à cause d'un câblage que personne n'a documenté, ou d'une logique laissée à moitié finie par un prestataire précédent ? Je relève l'armoire, la reconstruis proprement et reprogramme la logique à partir d'une base saine.</p>
+          <p data-i18n="svc1.p2"><b style="color:var(--text)">Vous obtenez :</b> une ligne qui tourne, une armoire que n'importe quel technicien peut reprendre, et la documentation de ce qui a changé.</p>
+          <a class="btn btn-ghost svc-cta" href="#contact" data-i18n="svc.cta">Demander un devis →</a>
         </div>
         <div class="spec-card">
-          <h3><i>⚙</i> Custom Machine Builds</h3>
-          <p>Testing rigs, special‑purpose machines, and one‑off equipment built around your process instead of forcing your process around off‑the‑shelf gear.</p>
-          <p><b style="color:var(--text)">You get:</b> a machine sized to your actual throughput, with a custom interface your operators can run day one.</p>
-          <a class="btn btn-ghost svc-cta" href="#contact">Request a Quote →</a>
+          <h3><i>⚙</i> <span data-i18n="svc2.title">Machines spéciales sur mesure</span></h3>
+          <p data-i18n="svc2.p1">Bancs d'essai, machines spéciales et équipements uniques conçus autour de votre procédé, au lieu de forcer votre procédé dans du matériel standard.</p>
+          <p data-i18n="svc2.p2"><b style="color:var(--text)">Vous obtenez :</b> une machine dimensionnée pour votre cadence réelle, avec une interface sur mesure que vos opérateurs maîtrisent dès le premier jour.</p>
+          <a class="btn btn-ghost svc-cta" href="#contact" data-i18n="svc.cta">Demander un devis →</a>
         </div>
         <div class="spec-card">
-          <h3><i>&gt;_</i> HMI &amp; Data Systems</h3>
-          <p>Custom C# interfaces for machines that currently give operators no visibility — live readings, logging, and automated reporting instead of a clipboard.</p>
-          <p><b style="color:var(--text)">You get:</b> real‑time data on your process and a paper trail you can hand to quality or management.</p>
-          <a class="btn btn-ghost svc-cta" href="#contact">Request a Quote →</a>
+          <h3><i>&gt;_</i> <span data-i18n="svc3.title">IHM &amp; systèmes de données</span></h3>
+          <p data-i18n="svc3.p1">Interfaces C# sur mesure pour des machines qui ne donnent aujourd'hui aucune visibilité aux opérateurs — mesures en direct, historisation et rapports automatiques à la place du bloc-notes.</p>
+          <p data-i18n="svc3.p2"><b style="color:var(--text)">Vous obtenez :</b> des données en temps réel sur votre procédé et une traçabilité à remettre à la qualité ou à la direction.</p>
+          <a class="btn btn-ghost svc-cta" href="#contact" data-i18n="svc.cta">Demander un devis →</a>
         </div>
         <div class="spec-card">
-          <h3><i>◎</i> Vision &amp; Robotics Integration</h3>
-          <p>Adding pick &amp; place, 6‑DOF arms, or vision‑based quality checks to a line that's currently manual — sized to fit your existing layout and tact time.</p>
-          <p><b style="color:var(--text)">You get:</b> fewer manual touchpoints and catches on defects before they leave the line.</p>
-          <a class="btn btn-ghost svc-cta" href="#contact">Request a Quote →</a>
+          <h3><i>◎</i> <span data-i18n="svc4.title">Intégration vision &amp; robotique</span></h3>
+          <p data-i18n="svc4.p1">Ajout de pick &amp; place, de bras 6 axes ou de contrôles qualité par vision sur une ligne encore manuelle — dimensionnés pour votre implantation et votre temps de cycle.</p>
+          <p data-i18n="svc4.p2"><b style="color:var(--text)">Vous obtenez :</b> moins d'opérations manuelles et des défauts détectés avant de quitter la ligne.</p>
+          <a class="btn btn-ghost svc-cta" href="#contact" data-i18n="svc.cta">Demander un devis →</a>
         </div>
       </div>
     </div>
@@ -143,28 +162,28 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">03</span>
-        <h2 class="sec-title">Capabilities</h2>
+        <h2 class="sec-title" data-i18n="sec.caps">Compétences</h2>
         <div class="sec-rule"></div>
       </div>
       <div class="spec-grid">
         <div class="spec-card">
-          <h3><i>⏚</i> Automation &amp; Electrical</h3>
-          <p>Control panel diagnostics, tracing corrupted wiring, rewiring power/command circuits, safety relays &amp; interlocks, sensor calibration and load‑cell integration.</p>
-          <div class="chips"><span class="chip">Mitsubishi FX</span><span class="chip">Yaskawa</span><span class="chip">Coolmay</span><span class="chip">Linear scaling</span></div>
+          <h3><i>⏚</i> <span data-i18n="cap1.title">Automatisme &amp; électricité</span></h3>
+          <p data-i18n="cap1.p">Diagnostic d'armoires, recherche de câblages défectueux, recâblage puissance/commande, relais de sécurité &amp; verrouillages, étalonnage de capteurs et intégration de cellules de charge.</p>
+          <div class="chips"><span class="chip">Mitsubishi FX</span><span class="chip">Yaskawa</span><span class="chip">Coolmay</span><span class="chip" data-i18n="chip.scaling">Mise à l'échelle linéaire</span></div>
         </div>
         <div class="spec-card">
-          <h3><i>⌁</i> Robotics &amp; Motion Control</h3>
-          <p>Pick &amp; place units, 6‑DOF articulated arms, and Delta robots — trajectory planning, TCP calibration, servo/stepper setup, PWM interfacing.</p>
-          <div class="chips"><span class="chip">6‑DOF arms</span><span class="chip">Delta robots</span><span class="chip">Kinematics</span></div>
+          <h3><i>⌁</i> <span data-i18n="cap2.title">Robotique &amp; contrôle de mouvement</span></h3>
+          <p data-i18n="cap2.p">Unités pick &amp; place, bras articulés 6 axes et robots Delta — planification de trajectoires, calibration TCP, paramétrage servo/pas‑à‑pas, interfaçage PWM.</p>
+          <div class="chips"><span class="chip" data-i18n="chip.arms">Bras 6 axes</span><span class="chip" data-i18n="chip.deltas">Robots Delta</span><span class="chip" data-i18n="chip.kin">Cinématique</span></div>
         </div>
         <div class="spec-card">
-          <h3><i>◎</i> Machine Vision &amp; Edge AI</h3>
-          <p>Pattern matching, scale/polarity validation, real‑time defect detection, and VLA loops on NVIDIA Jetson for automated piece sorting.</p>
-          <div class="chips"><span class="chip">Vision inspection</span><span class="chip">Jetson</span><span class="chip">VLA</span></div>
+          <h3><i>◎</i> <span data-i18n="cap3.title">Vision industrielle &amp; IA embarquée</span></h3>
+          <p data-i18n="cap3.p">Reconnaissance de motifs, validation d'échelle et de polarité, détection de défauts en temps réel et boucles VLA sur NVIDIA Jetson pour le tri automatique de pièces.</p>
+          <div class="chips"><span class="chip" data-i18n="chip.vision">Inspection vision</span><span class="chip">Jetson</span><span class="chip">VLA</span></div>
         </div>
         <div class="spec-card">
-          <h3><i>&gt;_</i> Software &amp; Integration</h3>
-          <p>Custom industrial HMIs and data acquisition in C# (.NET/WinForms/WPF) with automated PDF reporting, plus Python, Django, and Modbus/Serial.</p>
+          <h3><i>&gt;_</i> <span data-i18n="cap4.title">Logiciel &amp; intégration</span></h3>
+          <p data-i18n="cap4.p">IHM industrielles et acquisition de données sur mesure en C# (.NET/WinForms/WPF) avec rapports PDF automatiques, plus Python, Django et Modbus/série.</p>
           <div class="chips"><span class="chip">C# / WinForms</span><span class="chip">Python</span><span class="chip">Modbus</span><span class="chip">GitHub</span></div>
         </div>
       </div>
@@ -175,64 +194,64 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">04</span>
-        <h2 class="sec-title">Project Log</h2>
+        <h2 class="sec-title" data-i18n="sec.log">Journal de projets</h2>
         <div class="sec-rule"></div>
       </div>
 
       <div class="ticket frame">
         <div class="ticket-head">
           <span class="ticket-id mono">WO‑001</span>
-          <span class="ticket-title">Switch Touch‑Button Assembly Line Retrofit</span>
-          <span class="ticket-status">Commissioned</span>
+          <span class="ticket-title" data-i18n="wo1.title">Rétrofit d'une ligne d'assemblage de boutons tactiles</span>
+          <span class="ticket-status" data-i18n="wo1.status">Mis en service</span>
         </div>
         <div class="ticket-body">
-          <div class="field"><label>Scope</label><p>Overhauled an assembly line corrupted by multiple prior interventions — rewired and reorganized the control cabinet and reprogrammed control logic from scratch.</p></div>
-          <div class="field"><label>Systems Added</label><p>Integrated a pick &amp; place robot and a machine vision inspection system for real‑time quality validation.</p>
-          <div class="chips"><span class="chip">Mitsubishi PLC</span><span class="chip">Pick &amp; Place</span><span class="chip">Vision QC</span></div></div>
+          <div class="field"><label data-i18n="f.scope">Périmètre</label><p data-i18n="wo1.scope">Remise à niveau d'une ligne d'assemblage dégradée par plusieurs interventions successives — recâblage et réorganisation de l'armoire de commande, logique reprogrammée de zéro.</p></div>
+          <div class="field"><label data-i18n="f.systems">Systèmes ajoutés</label><p data-i18n="wo1.systems">Intégration d'un robot pick &amp; place et d'un système d'inspection par vision pour la validation qualité en temps réel.</p>
+          <div class="chips"><span class="chip" data-i18n="chip.mitsu">Automate Mitsubishi</span><span class="chip" data-i18n="chip.pnp">Pick &amp; Place</span><span class="chip" data-i18n="chip.visionqc">Contrôle qualité vision</span></div></div>
         </div>
       </div>
 
       <div class="ticket frame">
         <div class="ticket-head">
           <span class="ticket-id mono">WO‑002</span>
-          <span class="ticket-title">Material Tensile Testing Rig</span>
-          <span class="ticket-status">Built</span>
+          <span class="ticket-title" data-i18n="wo2.title">Banc d'essai de traction des matériaux</span>
+          <span class="ticket-status" data-i18n="wo2.status">Construit</span>
         </div>
         <div class="ticket-media">
-          <figure><img src="assets/images/tensile-rig-finished.jpg" alt="Finished tensile testing rig with control box" loading="lazy"><figcaption>Finished rig &amp; control box</figcaption></figure>
-          <figure><img src="assets/images/tensile-rig-schematic.jpg" alt="Control panel schematic for the tensile rig" loading="lazy"><figcaption>Panel schematic (CXG software)</figcaption></figure>
-          <figure><img src="assets/images/tensile-rig-frame-build.jpg" alt="Tensile rig frame assembly in progress" loading="lazy"><figcaption>Frame assembly in progress</figcaption></figure>
+          <figure><img src="assets/images/tensile-rig-finished.jpg" alt="Banc d'essai de traction terminé avec son coffret de commande" data-i18n-alt="gal.1.alt" loading="lazy"><figcaption data-i18n="wo2.m1">Banc terminé &amp; coffret de commande</figcaption></figure>
+          <figure><img src="assets/images/tensile-rig-schematic.jpg" alt="Schéma de l'armoire de commande du banc de traction" data-i18n-alt="gal.10.alt" loading="lazy"><figcaption data-i18n="wo2.m2">Schéma d'armoire (logiciel CXG)</figcaption></figure>
+          <figure><img src="assets/images/tensile-rig-frame-build.jpg" alt="Assemblage du châssis du banc de traction en cours" data-i18n-alt="wo2.m3.alt" loading="lazy"><figcaption data-i18n="wo2.m3">Assemblage du châssis en cours</figcaption></figure>
         </div>
         <div class="ticket-body">
-          <div class="field"><label>Scope</label><p>Built a material traction testing machine with a custom C# WinForms interface for operators and real‑time stress logging.</p></div>
-          <div class="field"><label>Systems Added</label><p>PLC sensors with linear scaling feeding live measurement data into the desktop application.</p>
-          <div class="chips"><span class="chip">C# WinForms</span><span class="chip">Load cells</span><span class="chip">Data logging</span></div></div>
+          <div class="field"><label data-i18n="f.scope">Périmètre</label><p data-i18n="wo2.scope">Construction d'une machine d'essai de traction avec une interface C# WinForms sur mesure pour les opérateurs et un enregistrement des contraintes en temps réel.</p></div>
+          <div class="field"><label data-i18n="f.systems">Systèmes ajoutés</label><p data-i18n="wo2.systems">Capteurs API avec mise à l'échelle linéaire alimentant l'application de bureau en mesures en direct.</p>
+          <div class="chips"><span class="chip">C# WinForms</span><span class="chip" data-i18n="chip.loadcells">Cellules de charge</span><span class="chip" data-i18n="chip.logging">Historisation</span></div></div>
         </div>
       </div>
 
       <div class="ticket frame">
         <div class="ticket-head">
           <span class="ticket-id mono">WO‑003</span>
-          <span class="ticket-title">VLA Delta Robot Sorting System</span>
-          <span class="ticket-status">Deployed</span>
+          <span class="ticket-title" data-i18n="wo3.title">Système de tri par robot Delta piloté par VLA</span>
+          <span class="ticket-status" data-i18n="wo3.status">Déployé</span>
         </div>
         <div class="ticket-body">
-          <div class="field"><label>Scope</label><p>Designed an edge‑AI sorting loop on an NVIDIA Jetson executing real‑time computer vision processing.</p></div>
-          <div class="field"><label>Systems Added</label><p>PWM control driving a Delta robot for piece manipulation on the sorting line.</p>
-          <div class="chips"><span class="chip">Jetson</span><span class="chip">Delta robot</span><span class="chip">PWM control</span></div></div>
+          <div class="field"><label data-i18n="f.scope">Périmètre</label><p data-i18n="wo3.scope">Conception d'une boucle de tri par IA embarquée sur NVIDIA Jetson exécutant le traitement de vision en temps réel.</p></div>
+          <div class="field"><label data-i18n="f.systems">Systèmes ajoutés</label><p data-i18n="wo3.systems">Commande PWM pilotant un robot Delta pour la manipulation des pièces sur la ligne de tri.</p>
+          <div class="chips"><span class="chip">Jetson</span><span class="chip" data-i18n="chip.delta">Robot Delta</span><span class="chip" data-i18n="chip.pwm">Commande PWM</span></div></div>
         </div>
       </div>
 
       <div class="ticket frame">
         <div class="ticket-head">
           <span class="ticket-id mono">WO‑004</span>
-          <span class="ticket-title">6‑Axis Kinematic Calibration &amp; Safe Interaction</span>
-          <span class="ticket-status">Tuned</span>
+          <span class="ticket-title" data-i18n="wo4.title">Calibration cinématique 6 axes &amp; interaction sûre</span>
+          <span class="ticket-status" data-i18n="wo4.status">Réglé</span>
         </div>
         <div class="ticket-body">
-          <div class="field"><label>Scope</label><p>Fine‑tuned force feedback limits, velocity overrides, and motion trajectories on 6‑DOF robotic arms.</p></div>
-          <div class="field"><label>Outcome</label><p>Smooth operational handshakes and safe shop‑floor interaction between the arm and operators.</p>
-          <div class="chips"><span class="chip">6‑DOF</span><span class="chip">Force feedback</span><span class="chip">Safety tuning</span></div></div>
+          <div class="field"><label data-i18n="f.scope">Périmètre</label><p data-i18n="wo4.scope">Réglage fin des limites de retour d'effort, des vitesses de sécurité et des trajectoires sur des bras robotisés 6 axes.</p></div>
+          <div class="field"><label data-i18n="f.outcome">Résultat</label><p data-i18n="wo4.outcome">Des échanges fluides et une cohabitation sûre entre le bras et les opérateurs sur le plancher de l'atelier.</p>
+          <div class="chips"><span class="chip" data-i18n="chip.dof">6 axes</span><span class="chip" data-i18n="chip.force">Retour d'effort</span><span class="chip" data-i18n="chip.safety">Réglage sécurité</span></div></div>
         </div>
       </div>
     </div>
@@ -242,29 +261,29 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">05</span>
-        <h2 class="sec-title">How We Work</h2>
+        <h2 class="sec-title" data-i18n="sec.process">Notre méthode</h2>
         <div class="sec-rule"></div>
       </div>
       <div class="steps">
         <div class="step frame">
-          <span class="step-n mono">STEP 1</span>
-          <h3>Diagnose</h3>
-          <p>Send photos or a description of the line, or arrange an on‑site visit in the Bizerte / Menzel Bourguiba area. I identify the actual cause before proposing a fix.</p>
+          <span class="step-n mono" data-i18n="step.n1">ÉTAPE 1</span>
+          <h3 data-i18n="step1.title">Diagnostic</h3>
+          <p data-i18n="step1.p">Envoyez des photos ou une description de la ligne, ou organisons une visite sur site dans la zone de Bizerte / Menzel Bourguiba. J'identifie la cause réelle avant de proposer une solution.</p>
         </div>
         <div class="step frame">
-          <span class="step-n mono">STEP 2</span>
-          <h3>Scope &amp; Quote</h3>
-          <p>You get a written scope of work and a quote — what's being rebuilt, what hardware is used, and the timeline. No work starts without your sign‑off.</p>
+          <span class="step-n mono" data-i18n="step.n2">ÉTAPE 2</span>
+          <h3 data-i18n="step2.title">Périmètre &amp; devis</h3>
+          <p data-i18n="step2.p">Vous recevez un cahier des charges écrit et un devis — ce qui est refait, le matériel utilisé et le délai. Aucun travail ne démarre sans votre accord.</p>
         </div>
         <div class="step frame">
-          <span class="step-n mono">STEP 3</span>
-          <h3>Build &amp; Commission</h3>
-          <p>Cabinet work, programming, and integration happen on your equipment or in‑shop, with regular updates until the line is running and validated.</p>
+          <span class="step-n mono" data-i18n="step.n3">ÉTAPE 3</span>
+          <h3 data-i18n="step3.title">Réalisation &amp; mise en service</h3>
+          <p data-i18n="step3.p">Armoire, programmation et intégration se font sur votre équipement ou en atelier, avec des points réguliers jusqu'à ce que la ligne tourne et soit validée.</p>
         </div>
         <div class="step frame">
-          <span class="step-n mono">STEP 4</span>
-          <h3>Handover</h3>
-          <p>You receive documentation of what changed, and direct access to me for follow‑up questions — not a support ticket queue.</p>
+          <span class="step-n mono" data-i18n="step.n4">ÉTAPE 4</span>
+          <h3 data-i18n="step4.title">Livraison</h3>
+          <p data-i18n="step4.p">Vous recevez la documentation de ce qui a changé et un accès direct à moi pour vos questions — pas une file d'attente de tickets.</p>
         </div>
       </div>
     </div>
@@ -273,10 +292,10 @@
   <section class="cta-banner">
     <div class="wrap cta-banner-inner">
       <div>
-        <span class="mono cta-eyebrow">Have a similar problem on your line?</span>
-        <h3>Let's scope it out.</h3>
+        <span class="mono cta-eyebrow" data-i18n="cta.eyebrow">Un problème similaire sur votre ligne ?</span>
+        <h3 data-i18n="cta.title">Étudions‑le ensemble.</h3>
       </div>
-      <a class="btn btn-primary" href="#contact">Request a Quote ↗</a>
+      <a class="btn btn-primary" href="#contact" data-i18n="cta.btn">Demander un devis ↗</a>
     </div>
   </section>
 
@@ -284,13 +303,13 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">06</span>
-        <h2 class="sec-title">Hands‑On Diagnostics</h2>
+        <h2 class="sec-title" data-i18n="sec.diag">Diagnostic &amp; réparation</h2>
         <div class="sec-rule"></div>
       </div>
       <div class="diag">
-        <div class="diag-item"><span class="k">Consumer Electronics</span><p>Component‑level troubleshooting on laptops, including Lenovo G30/G50 platforms.</p></div>
-        <div class="diag-item"><span class="k">HVAC</span><p>Compressor line repairs on cooling systems.</p></div>
-        <div class="diag-item"><span class="k">Custom Parts</span><p>3D‑designed replacement parts and latches for hardware repair.</p></div>
+        <div class="diag-item"><span class="k" data-i18n="diag1.k">Électronique grand public</span><p data-i18n="diag1.p">Dépannage au niveau composant sur ordinateurs portables, dont les plateformes Lenovo G30/G50.</p></div>
+        <div class="diag-item"><span class="k" data-i18n="diag2.k">Froid &amp; climatisation</span><p data-i18n="diag2.p">Réparation de lignes de compresseur sur systèmes de refroidissement.</p></div>
+        <div class="diag-item"><span class="k" data-i18n="diag3.k">Pièces sur mesure</span><p data-i18n="diag3.p">Pièces de rechange et loquets conçus en 3D pour la réparation de matériel.</p></div>
       </div>
     </div>
   </section>
@@ -299,17 +318,17 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">07</span>
-        <h2 class="sec-title">Off‑Duty</h2>
+        <h2 class="sec-title" data-i18n="sec.off">Hors du travail</h2>
         <div class="sec-rule"></div>
       </div>
       <div class="offduty">
         <div class="spec-card">
-          <h3><i>~</i> Aquarium Keeping</h3>
-          <p>Active home aquarist balancing tanks and aquatic plant ecosystems — currently keeping Betta, Neon Tetras, a Pleco, and a Mystery Snail.</p>
+          <h3><i>~</i> <span data-i18n="off1.title">Aquariophilie</span></h3>
+          <p data-i18n="off1.p">Aquariophile passionné, j'équilibre bacs et écosystèmes de plantes aquatiques — actuellement des Betta, des néons, un Pleco et un escargot Mystery.</p>
         </div>
         <div class="spec-card">
-          <h3><i>◈</i> Motorcycles</h3>
-          <p>Tracking large‑chassis, heavy‑frame entry‑level motorcycles in the Tunisian market.</p>
+          <h3><i>◈</i> <span data-i18n="off2.title">Motos</span></h3>
+          <p data-i18n="off2.p">Je suis de près les motos d'entrée de gamme à gros châssis sur le marché tunisien.</p>
         </div>
       </div>
     </div>
@@ -320,56 +339,54 @@
   <div class="wrap">
     <div class="contact-grid">
       <div>
-        <div class="contact-title">Let's build<br>something <span>reliable</span>.</div>
-        <p class="contact-sub">Tell me about the line, the machine, or the problem — I reply directly, usually within a day.</p>
+        <div class="contact-title" data-i18n="contact.title">Construisons<br>quelque chose de <span>fiable</span>.</div>
+        <p class="contact-sub" data-i18n="contact.sub">Décrivez‑moi la ligne, la machine ou le problème — je réponds directement, généralement sous 24 h.</p>
         <div class="contact-links">
-          <a href="mailto:belkhamsaayhem09@gmail.com">belkhamsaayhem09@gmail.com ↗</a>
-          <span class="contact-area">Serving Bizerte, Menzel Bourguiba &amp; surrounding industrial hubs</span>
+          <a href="mailto:belkhamsaayhem09@gmail.com" dir="ltr">belkhamsaayhem09@gmail.com ↗</a>
+          <span class="contact-area" data-i18n="contact.area">Bizerte, Menzel Bourguiba &amp; pôles industriels environnants</span>
         </div>
       </div>
 
       <form class="quote-form frame" id="quoteForm">
-        <div class="hmi-head"><span>Request a Quote</span><span>WO‑NEW</span></div>
+        <div class="hmi-head"><span data-i18n="qf.head">Demande de devis</span><span>WO‑NEW</span></div>
         <div class="qf-body">
-          <label class="qf-label" for="qf-name">Name</label>
-          <input class="qf-input" id="qf-name" name="name" type="text" required placeholder="Your name">
+          <label class="qf-label" for="qf-name" data-i18n="qf.name">Nom</label>
+          <input class="qf-input" id="qf-name" name="name" type="text" required placeholder="Votre nom" data-i18n-placeholder="qf.name.ph">
 
-          <label class="qf-label" for="qf-contact">Email or Phone</label>
-          <input class="qf-input" id="qf-contact" name="contact" type="text" required placeholder="How to reach you">
+          <label class="qf-label" for="qf-contact" data-i18n="qf.contact">E‑mail ou téléphone</label>
+          <input class="qf-input" id="qf-contact" name="contact" type="text" required placeholder="Comment vous joindre" data-i18n-placeholder="qf.contact.ph">
 
-          <label class="qf-label" for="qf-type">Project Type</label>
+          <label class="qf-label" for="qf-type" data-i18n="qf.type">Type de projet</label>
           <select class="qf-input" id="qf-type" name="type">
-            <option>PLC / Control Panel Retrofit</option>
-            <option>Custom Machine Build</option>
-            <option>HMI / Data System</option>
-            <option>Vision / Robotics Integration</option>
-            <option>Other</option>
+            <option data-i18n="qf.opt1">Rétrofit automate / armoire</option>
+            <option data-i18n="qf.opt2">Machine spéciale sur mesure</option>
+            <option data-i18n="qf.opt3">IHM / système de données</option>
+            <option data-i18n="qf.opt4">Intégration vision / robotique</option>
+            <option data-i18n="qf.opt5">Autre</option>
           </select>
 
-          <label class="qf-label" for="qf-msg">What's going on?</label>
-          <textarea class="qf-input" id="qf-msg" name="message" rows="3" placeholder="Brief description of the machine or problem"></textarea>
+          <label class="qf-label" for="qf-msg" data-i18n="qf.msg">Que se passe‑t‑il ?</label>
+          <textarea class="qf-input" id="qf-msg" name="message" rows="3" placeholder="Brève description de la machine ou du problème" data-i18n-placeholder="qf.msg.ph"></textarea>
 
-          <button type="submit" class="btn btn-primary qf-submit">Send Request ↗</button>
-          <p class="qf-note">Opens your email client with this filled in, addressed to belkhamsaayhem09@gmail.com.</p>
+          <button type="submit" class="btn btn-primary qf-submit" data-i18n="qf.submit">Envoyer la demande ↗</button>
+          <p class="qf-note" data-i18n="qf.note">Ouvre votre messagerie avec ces informations pré‑remplies, à l'adresse belkhamsaayhem09@gmail.com.</p>
         </div>
       </form>
     </div>
     <div class="foot-bottom">
-      <span>Ayhem Belkhamsa — Industrial Automation Engineer, Machine Builder &amp; Auto‑Entrepreneur</span>
+      <span data-i18n="foot.1">Ayhem Belkhamsa — Ingénieur en automatisation industrielle, constructeur de machines &amp; auto‑entrepreneur</span>
       <span>Polytechnique Internationale · ISET Bizerte</span>
     </div>
   </div>
 </footer>
 
-<a class="fab" id="fab" href="#contact">Request a Quote ↗</a>
-<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button class="lb-close" id="lbClose" aria-label="Close photo">×</button>
+<a class="fab" id="fab" href="#contact" data-i18n="fab">Demander un devis ↗</a>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Visionneuse de photos" data-i18n-label="lb.label">
+  <button class="lb-close" id="lbClose" aria-label="Fermer la photo" data-i18n-label="lb.close">×</button>
   <img id="lbImg" alt="">
   <p id="lbCap"></p>
 </div>
+<script src="js/i18n.js" defer></script>
 <script src="js/main.js" defer></script>
-
-
-
 </body>
 </html>

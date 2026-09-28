@@ -60,6 +60,15 @@
   }
   nav a:hover, nav a:focus-visible{color:var(--cyan);}
   .navlinks{display:flex;}
+  .nav-right{display:flex; align-items:center; gap:12px; flex-shrink:0;}
+  .lang{display:flex; gap:2px; padding:2px; border:1px solid var(--line); background:var(--panel);}
+  .lang button{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.08em; line-height:1;
+    background:none; border:0; color:var(--text-dim); padding:7px 8px; cursor:pointer; transition:color 0.2s, background 0.2s;
+  }
+  .lang button:hover, .lang button:focus-visible{color:var(--text);}
+  .lang button[aria-pressed="true"]{background:var(--orange); color:var(--bg);}
+  .lang button[lang="ar"]{font-family:'IBM Plex Sans Arabic', sans-serif; letter-spacing:0; font-weight:600;}
   @media (max-width:720px){ .navlinks{display:none;} }
 
   /* ===== HERO ===== */
@@ -353,3 +362,18 @@ h1 .line2{font-size:0.52em; margin-top:0.18em; min-height:1.1em;}
 @media (max-width:560px){ .photo-grid .g-tall{grid-row:auto;} .photo-grid .g-tall img{min-height:320px;} }
 .photo-grid video{width:100%; flex:1 1 auto; min-height:400px; height:230px; object-fit:cover; display:block; background:#000;}
 @media (max-width:560px){ .photo-grid video{height:auto; min-height:0; aspect-ratio:9/16; max-height:80vh;} }
+
+/* ===== Arabic / RTL ===== */
+html[lang="ar"] body, html[lang="ar"] input, html[lang="ar"] select, html[lang="ar"] textarea, html[lang="ar"] button{font-family:'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif;}
+html[lang="ar"] :where(h1, h2, h3, .sec-title, .ticket-title, .contact-title, .cta-banner h3, .step h3, .spec-card h3){font-family:'IBM Plex Sans Arabic', sans-serif; letter-spacing:0;}
+html[lang="ar"] :where(.tag, .chip, .btn, figcaption, .hmi-head, .hmi-row, .hmi-readout, .field label, .ticket-status, .step-n, .cta-eyebrow, .diag-item .k, .qf-label, .qf-note, .foot-bottom, .contact-area, nav a, .sec-desc, .lightbox p, .fab){font-family:'IBM Plex Sans Arabic', 'IBM Plex Sans', sans-serif; letter-spacing:0;}
+html[lang="ar"] :where(.mono, .logo, .ticker-set, .sec-num, .hmi-row span:last-child, .lang button:not([lang="ar"])){font-family:'IBM Plex Mono', monospace;}
+html[lang="ar"] .logo{font-family:'Big Shoulders Display', sans-serif;}
+html[lang="ar"] h1{line-height:1.15;}
+html[lang="ar"] .hmi-readout::after{margin-left:0; margin-right:2px;}
+html[dir="rtl"] :where(.hmi-row span:last-child, .hmi-head span:last-child, .ticket-id){direction:ltr; unicode-bidi:isolate;}
+html[dir="rtl"] .progress{left:auto; right:0;}
+html[dir="rtl"] .fab{right:auto; left:20px;}
+html[dir="rtl"] .ticker-track{animation-name:tick-rtl;}
+@keyframes tick-rtl{to{transform:translateX(50%)}}
+@media (max-width:560px){ nav .btn.nav-cta{display:none;} } /* hero + floating quote button cover it */
