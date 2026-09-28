@@ -14,15 +14,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js")</script>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<div class="spot" aria-hidden="true"></div>
 
 <header>
   <div class="wrap">
     <nav>
       <div class="logo">AYHEM<span>.</span>BELKHAMSA</div>
       <ul class="navlinks">
+        <li><a href="#gallery">The Work</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#log">Project Log</a></li>
         <li><a href="#process">How We Work</a></li>
@@ -39,10 +43,11 @@
       <div class="tag-row">
         <span class="tag">● System Online</span>
         <span class="tag">Bizerte · Menzel Bourguiba · Tunisia</span>
+        <span class="tag tag-edu">Polytechnique Internationale · ISET Bizerte</span>
       </div>
       <div class="hero-grid">
         <div>
-          <h1>Ayhem<br>Belkhamsa<span class="line2">Machine Builder</span></h1>
+          <h1>Ayhem<br>Belkhamsa<span class="line2"><span id="rotator">Machine Builder</span></span></h1>
           <p class="role">
             <b>Industrial automation engineer &amp; auto‑entrepreneur</b> building, retrofitting, and commissioning
             special machines across Tunisia's northern industrial hubs — from PLC cabinets rewired ground‑up
@@ -51,7 +56,7 @@
           <p class="trust-line">Independent operator — you talk directly with the engineer who diagnoses your line, quotes the job, and builds it. No account managers in between.</p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#contact">Request a Quote ↗</a>
-            <a class="btn btn-ghost" href="#log">View Project Log</a>
+            <a class="btn btn-ghost" href="#gallery">See the Work ↓</a>
           </div>
         </div>
 
@@ -63,7 +68,7 @@
               <div class="hmi-row"><span>PLC PLATFORMS</span><span>MITSUBISHI FX / SIEMENS S7</span></div>
               <div class="hmi-row"><span>DRIVES</span><span>YASKAWA / COOLMAY VFD</span></div>
               <div class="hmi-row"><span>ROBOTICS</span><span>6‑DOF · DELTA · P&amp;P</span></div>
-              <div class="hmi-row"><span>UPTIME<span class="bar"><i style="width:92%"></i></span></span><span>92%</span></div>
+              <div class="hmi-row"><span>I/O ACTIVITY</span><span class="io" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
             </div>
           </div>
         </div>
@@ -71,10 +76,35 @@
     </div>
   </section>
 
-  <section id="services">
+  <div class="ticker" aria-label="Platforms and affiliations"><div class="ticker-track"><div class="ticker-set"><span>Mitsubishi FX</span><b>◆</b><span>Siemens S7</span><b>◆</b><span>Yaskawa</span><b>◆</b><span>Coolmay</span><b>◆</b><span>NVIDIA Jetson</span><b>◆</b><span>C# / .NET</span><b>◆</b><span>Python</span><b>◆</b><span>Modbus</span><b>◆</b><span>Polytechnique Internationale</span><b>◆</b><span>ISET Bizerte</span><b>◆</b></div><div class="ticker-set" aria-hidden="true"><span>Mitsubishi FX</span><b>◆</b><span>Siemens S7</span><b>◆</b><span>Yaskawa</span><b>◆</b><span>Coolmay</span><b>◆</b><span>NVIDIA Jetson</span><b>◆</b><span>C# / .NET</span><b>◆</b><span>Python</span><b>◆</b><span>Modbus</span><b>◆</b><span>Polytechnique Internationale</span><b>◆</b><span>ISET Bizerte</span><b>◆</b></div></div></div>
+
+  <section id="gallery">
     <div class="wrap">
       <div class="sec-head">
         <span class="sec-num">01</span>
+        <h2 class="sec-title">The Work</h2>
+        <div class="sec-rule"></div>
+      </div>
+      <p class="sec-desc" style="margin-top:-16px;">Real machines, real cabinets, real builds — photographed on my own jobs. Click any photo to enlarge.</p>
+      <div class="photo-grid">
+        <figure class="frame g-tall"><img src="assets/images/tensile-rig-finished.jpg" alt="Finished tensile testing rig with its control box" loading="eager"><figcaption>Tensile rig — built &amp; commissioned</figcaption></figure>
+        <figure class="frame g-tall"><img src="assets/images/pick-and-place-cell.jpg" alt="Programming a pick and place cell on site" loading="eager"><figcaption>Programming a pick &amp; place cell on‑site</figcaption></figure>
+        <figure class="frame"><img src="assets/images/control-cabinet-retrofit.jpg" alt="Inside a control cabinet during a retrofit" loading="lazy"><figcaption>Inside a control cabinet mid‑retrofit</figcaption></figure>
+        <figure class="frame"><img src="assets/images/vision-inspection-setup.jpg" alt="Setting up a machine vision inspection camera" loading="lazy"><figcaption>Setting up a vision inspection camera</figcaption></figure>
+        <figure class="frame"><img src="assets/images/cell-3d-layout.jpg" alt="3D layout of an automated cell during the design phase" loading="lazy"><figcaption>3D layout during the design phase</figcaption></figure>
+        <figure class="frame"><img src="assets/images/legacy-machine-close.jpg" alt="A legacy machine on the shop floor ahead of an automation upgrade" loading="lazy"><figcaption>Legacy machine, ahead of an upgrade</figcaption></figure>
+        <figure class="frame"><img src="assets/images/controller-commissioning.jpg" alt="Motion controller and open cabinet during commissioning" loading="lazy"><figcaption>Controller &amp; cabinet, commissioning</figcaption></figure>
+        <figure class="frame"><img src="assets/images/vision-inspection-bench.jpg" alt="Machine vision camera and inspection software on the bench" loading="lazy"><figcaption>Vision inspection bench test</figcaption></figure>
+        <figure class="frame"><img src="assets/images/legacy-machine-wide.jpg" alt="Legacy production machine in a factory hall" loading="lazy"><figcaption>Legacy line before automation work</figcaption></figure>
+        <figure class="frame"><img src="assets/images/tensile-rig-schematic.jpg" alt="Control panel schematic for the tensile rig" loading="lazy"><figcaption>Panel schematic, tensile rig</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
         <h2 class="sec-title">Services</h2>
         <div class="sec-rule"></div>
       </div>
@@ -111,7 +141,7 @@
   <section id="capabilities">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">02</span>
+        <span class="sec-num">03</span>
         <h2 class="sec-title">Capabilities</h2>
         <div class="sec-rule"></div>
       </div>
@@ -143,7 +173,7 @@
   <section id="log">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">03</span>
+        <span class="sec-num">04</span>
         <h2 class="sec-title">Project Log</h2>
         <div class="sec-rule"></div>
       </div>
@@ -210,7 +240,7 @@
   <section id="process">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">04</span>
+        <span class="sec-num">05</span>
         <h2 class="sec-title">How We Work</h2>
         <div class="sec-rule"></div>
       </div>
@@ -252,7 +282,7 @@
   <section id="diagnostics">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">05</span>
+        <span class="sec-num">06</span>
         <h2 class="sec-title">Hands‑On Diagnostics</h2>
         <div class="sec-rule"></div>
       </div>
@@ -267,7 +297,7 @@
   <section id="offduty-section">
     <div class="wrap">
       <div class="sec-head">
-        <span class="sec-num">06</span>
+        <span class="sec-num">07</span>
         <h2 class="sec-title">Off‑Duty</h2>
         <div class="sec-rule"></div>
       </div>
@@ -284,27 +314,6 @@
     </div>
   </section>
 </main>
-
-  <section id="gallery">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="sec-num">07</span>
-        <h2 class="sec-title">In The Shop</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <p class="sec-desc" style="margin-top:-16px;">A few unposed shots from actual jobs and builds.</p>
-      <div class="photo-grid">
-        <figure class="frame"><img src="assets/images/pick-and-place-cell.jpg" alt="Programming a pick and place cell on site" loading="lazy"><figcaption>Programming a pick &amp; place cell on‑site</figcaption></figure>
-        <figure class="frame"><img src="assets/images/control-cabinet-retrofit.jpg" alt="Inside a control cabinet during a retrofit" loading="lazy"><figcaption>Inside a control cabinet mid‑retrofit</figcaption></figure>
-        <figure class="frame"><img src="assets/images/vision-inspection-setup.jpg" alt="Setting up a machine vision inspection camera" loading="lazy"><figcaption>Setting up a vision inspection camera</figcaption></figure>
-        <figure class="frame"><img src="assets/images/cell-3d-layout.jpg" alt="3D layout of an automated cell during the design phase" loading="lazy"><figcaption>3D layout during the design phase</figcaption></figure>
-        <figure class="frame"><img src="assets/images/legacy-machine-close.jpg" alt="A legacy machine on the shop floor ahead of an automation upgrade" loading="lazy"><figcaption>Legacy machine, ahead of an upgrade</figcaption></figure>
-        <figure class="frame"><img src="assets/images/vision-inspection-bench.jpg" alt="Machine vision camera and inspection software on the bench" loading="lazy"><figcaption>Vision inspection bench test</figcaption></figure>
-        <figure class="frame"><img src="assets/images/controller-commissioning.jpg" alt="Motion controller and open cabinet during commissioning" loading="lazy"><figcaption>Controller &amp; cabinet on the floor, commissioning</figcaption></figure>
-        <figure class="frame"><img src="assets/images/legacy-machine-wide.jpg" alt="Legacy production machine in a factory hall" loading="lazy"><figcaption>Legacy line before automation work</figcaption></figure>
-      </div>
-    </div>
-  </section>
 
 <footer id="contact">
   <div class="wrap">
@@ -346,11 +355,17 @@
     </div>
     <div class="foot-bottom">
       <span>Ayhem Belkhamsa — Industrial Automation Engineer, Machine Builder &amp; Auto‑Entrepreneur</span>
-      <span>ESPRIT University · SABROBTICS / ISET Radès</span>
+      <span>Polytechnique Internationale · ISET Bizerte</span>
     </div>
   </div>
 </footer>
 
+<a class="fab" id="fab" href="#contact">Request a Quote ↗</a>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close photo">×</button>
+  <img id="lbImg" alt="">
+  <p id="lbCap"></p>
+</div>
 <script src="js/main.js" defer></script>
 
 
