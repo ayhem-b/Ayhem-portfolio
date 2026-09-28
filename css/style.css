@@ -351,3 +351,5 @@ h1 .line2{font-size:0.52em; margin-top:0.18em; min-height:1.1em;}
 .photo-grid .g-tall img{min-height:400px;}
 .photo-grid figcaption{flex:none;}
 @media (max-width:560px){ .photo-grid .g-tall{grid-row:auto;} .photo-grid .g-tall img{min-height:320px;} }
+.photo-grid video{width:100%; flex:1 1 auto; min-height:400px; height:230px; object-fit:cover; display:block; background:#000;}
+@media (max-width:560px){ .photo-grid video{height:auto; min-height:0; aspect-ratio:9/16; max-height:80vh;} }
