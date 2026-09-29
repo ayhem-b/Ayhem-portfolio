@@ -373,6 +373,12 @@ h1 .line2{font-size:0.52em; margin-top:0.18em; min-height:1.1em;}
 @media (max-width:560px){ .photo-grid .g-tall{grid-row:auto;} .photo-grid .g-tall img{min-height:320px;} }
 .photo-grid video{width:100%; flex:1 1 auto; min-height:400px; height:230px; object-fit:cover; display:block; background:#000;}
 @media (max-width:560px){ .photo-grid video{height:auto; min-height:0; aspect-ratio:9/16; max-height:80vh;} }
+/* 4x2 showcase tile: full grid width, two rows tall */
+.photo-grid .g-wide{grid-column:1 / -1; grid-row:span 2;}
+.photo-grid .g-wide video{height:auto; min-height:480px; object-fit:cover;}
+@media (max-width:900px){ .photo-grid .g-wide video{min-height:360px;} }
+@media (max-width:560px){ .photo-grid .g-wide{grid-row:auto;} .photo-grid .g-wide video{min-height:0; aspect-ratio:16/9; max-height:none;} }
+
 /* ambient background reel behind The Work: no controls, looping, faded under a gradient so tiles stay readable */
 .has-bgvideo{position:relative; overflow:hidden;}
 .has-bgvideo > .wrap{position:relative; z-index:1;}
