@@ -18,6 +18,9 @@ if (qf) qf.addEventListener('submit', function (e) {
   window.location.href = 'mailto:belkhamsaayhem09@gmail.com?subject=' + subject + '&body=' + body;
 });
 
+/* ---------- Ambient background reel: hold still for reduced-motion users ---------- */
+if (reduce) document.querySelectorAll('.bg-video video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+
 /* ---------- Light / dark theme toggle ---------- */
 const themeBtn = document.getElementById('themeToggle');
 const themeMeta = document.querySelector('meta[name="theme-color"]');
