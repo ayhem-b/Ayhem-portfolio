@@ -18,6 +18,19 @@ if (qf) qf.addEventListener('submit', function (e) {
   window.location.href = 'mailto:belkhamsaayhem09@gmail.com?subject=' + subject + '&body=' + body;
 });
 
+/* ---------- Light / dark theme toggle ---------- */
+const themeBtn = document.getElementById('themeToggle');
+const themeMeta = document.querySelector('meta[name="theme-color"]');
+function setTheme(th) {
+  document.documentElement.setAttribute('data-theme', th);
+  if (themeMeta) themeMeta.setAttribute('content', th === 'light' ? '#F4F1EC' : '#12171A');
+  try { localStorage.setItem('theme', th); } catch (e) {}
+}
+if (themeMeta) themeMeta.setAttribute('content', document.documentElement.getAttribute('data-theme') === 'light' ? '#F4F1EC' : '#12171A');
+if (themeBtn) themeBtn.addEventListener('click', () => {
+  setTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+});
+
 /* ---------- HMI typing readout ---------- */
 const readout = document.getElementById('readout');
 let messages = I18N.t('js.hmi');

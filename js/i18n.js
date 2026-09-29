@@ -7,12 +7,12 @@ const TRANSLATIONS = {
     'meta.title': 'Ayhem Belkhamsa — Ingénieur en automatisation industrielle &amp; constructeur de machines',
     'meta.desc': "Ayhem Belkhamsa - ingénieur en automatisation industrielle et constructeur de machines à Bizerte et Menzel Bourguiba, Tunisie. Rétrofit d'automates et d'armoires électriques, machines spéciales, IHM et systèmes de données, intégration vision et robotique.",
     'lang.label': 'Langue',
+    'theme.toggle': 'Basculer le thème clair / sombre',
 
     'nav.work': 'Réalisations',
     'nav.services': 'Services',
-    'nav.log': 'Journal de projets',
-    'nav.process': 'Notre méthode',
-    'nav.workshop': 'Atelier',
+    'nav.log': 'Projets',
+    'nav.process': 'Méthode',
     'nav.cta': 'Demander un devis',
 
     'hero.tag1': '● Système en ligne',
@@ -187,12 +187,12 @@ const TRANSLATIONS = {
     'meta.title': 'Ayhem Belkhamsa — Industrial Automation Engineer &amp; Machine Builder',
     'meta.desc': 'Ayhem Belkhamsa - industrial automation engineer and machine builder in Bizerte and Menzel Bourguiba, Tunisia. PLC and control panel retrofits, custom machines, HMI and data systems, vision and robotics integration.',
     'lang.label': 'Language',
+    'theme.toggle': 'Toggle light / dark theme',
 
     'nav.work': 'The Work',
     'nav.services': 'Services',
     'nav.log': 'Project Log',
     'nav.process': 'How We Work',
-    'nav.workshop': 'Workshop',
     'nav.cta': 'Get a Quote',
 
     'hero.tag1': '● System Online',
@@ -367,12 +367,12 @@ const TRANSLATIONS = {
     'meta.title': 'أيهم بلخمسة — مهندس أتمتة صناعية وصانع آلات',
     'meta.desc': 'أيهم بلخمسة - مهندس أتمتة صناعية وصانع آلات في بنزرت ومنزل بورقيبة، تونس. تجديد أجهزة التحكم المنطقي (PLC) واللوحات الكهربائية، آلات خاصة، واجهات تشغيل وأنظمة بيانات، دمج الرؤية الآلية والروبوتات.',
     'lang.label': 'اللغة',
+    'theme.toggle': 'تبديل المظهر الفاتح / الداكن',
 
     'nav.work': 'الأعمال',
     'nav.services': 'الخدمات',
     'nav.log': 'سجل المشاريع',
     'nav.process': 'طريقة العمل',
-    'nav.workshop': 'الورشة',
     'nav.cta': 'اطلب عرض سعر',
 
     'hero.tag1': '● النظام يعمل',
