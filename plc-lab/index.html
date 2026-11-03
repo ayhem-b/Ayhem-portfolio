@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLC Lab — Simulateur interactif d'automate</title>
+<meta name="description" content="Établi virtuel en temps réel : boutons, capteur, arrêt d'urgence, multimètre, schéma à contacts (Ladder) animé et sorties d'un convoyeur.">
+<meta name="theme-color" content="#12171A">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+  /* Language, direction and theme before first paint, so RTL / light mode never flash. */
+  (function () {
+    var l = 'fr', th = 'dark';
+    try {
+      var q = new URLSearchParams(location.search).get('lang'), s = localStorage.getItem('plclab.lang');
+      l = /^(fr|en|ar)$/.test(q) ? q : /^(fr|en|ar)$/.test(s) ? s : 'fr';
+      var st = localStorage.getItem('plclab.theme');
+      th = (st === 'light' || st === 'dark') ? st : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    } catch (e) {}
+    document.documentElement.lang = l;
+    document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.setAttribute('data-theme', th);
+  })();
+</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="logo">PLC<span>.</span>LAB <small data-i18n="brand.sub">Simulateur interactif</small></div>
+    <div class="bar-right">
+      <div class="lang" role="group" data-i18n-label="lang.label" aria-label="Langue">
+        <button type="button" data-lang="fr" lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" lang="en" aria-pressed="false">EN</button>
+        <button type="button" data-lang="ar" lang="ar" aria-pressed="false">عربي</button>
+      </div>
+      <button type="button" class="icon-btn" id="soundToggle" aria-pressed="false" data-i18n-label="sound.toggle" aria-label="Son du buzzer">
+        <svg class="ico-on" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+        <svg class="ico-off" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+      </button>
+      <button type="button" class="icon-btn" id="themeToggle" data-i18n-label="theme.toggle" aria-label="Thème clair / sombre">
+        <svg class="ico-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="ico-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <h1 data-i18n="intro.title">Établi virtuel d'automate</h1>
+    <p data-i18n="intro.p">Actionnez les boutons et le capteur, mesurez les tensions au multimètre et regardez le programme Ladder s'exécuter en direct, scan après scan.</p>
+  </section>
+
+  <div class="grid">
+    <!-- ===== FIELD INPUTS ===== -->
+    <section class="panel p-inputs" aria-labelledby="h-inputs">
+      <h2 id="h-inputs"><span class="num">01</span><span data-i18n="in.title">Pupitre opérateur — entrées</span></h2>
+      <div class="inputs">
+        <div class="device">
+          <button type="button" class="pb pb-start" id="btnStart" aria-pressed="false" data-i18n-label="in.start.label" aria-label="Bouton Marche (maintenir)"><span>I</span></button>
+          <div class="dev-name" data-i18n="in.start">Marche</div>
+          <div class="dev-meta mono">I0.0 · NO <kbd>1</kbd></div>
+        </div>
+        <div class="device">
+          <button type="button" class="pb pb-stop" id="btnStop" aria-pressed="false" data-i18n-label="in.stop.label" aria-label="Bouton Arrêt (maintenir)"><span>O</span></button>
+          <div class="dev-name" data-i18n="in.stop">Arrêt</div>
+          <div class="dev-meta mono">I0.1 · NC <kbd>2</kbd></div>
+        </div>
+        <div class="device">
+          <button type="button" class="toggle" id="swSensor" role="switch" aria-checked="false" data-i18n-label="in.sensor.label" aria-label="Capteur de bourrage"><span class="lever"></span></button>
+          <div class="dev-name" data-i18n="in.sensor">Capteur</div>
+          <div class="dev-meta mono">I0.2 · PNP <kbd>3</kbd></div>
+        </div>
+        <div class="device">
+          <button type="button" class="estop" id="btnEstop" aria-pressed="false" data-i18n-label="in.estop.label" aria-label="Arrêt d'urgence (verrouillé)"><span class="mushroom"></span></button>
+          <div class="dev-name" data-i18n="in.estop">Arrêt d'urgence</div>
+          <div class="dev-meta mono">I0.3 · NC <kbd>4</kbd></div>
+        </div>
+      </div>
+      <p class="hint" data-i18n="in.hint">Marche et Arrêt sont à impulsion : maintenez‑les enfoncés. Le capteur bascule. L'arrêt d'urgence reste verrouillé jusqu'au déverrouillage.</p>
+    </section>
+
+    <!-- ===== LADDER ===== -->
+    <section class="panel p-ladder" aria-labelledby="h-ladder">
+      <div class="panel-head">
+        <h2 id="h-ladder"><span class="num">02</span><span data-i18n="lad.title">Programme Ladder — en direct</span></h2>
+        <div class="cpu-ctl">
+          <span class="scan mono" id="scanInfo">SCAN 0</span>
+          <div class="seg" role="group" data-i18n-label="cpu.mode" aria-label="Mode de la CPU">
+            <button type="button" data-mode="run" aria-pressed="true">RUN</button>
+            <button type="button" data-mode="stop" aria-pressed="false">STOP</button>
+          </div>
+        </div>
+      </div>
+      <div class="ladder-scroll" dir="ltr"><svg id="ladder" class="ladder" role="img" data-i18n-label="lad.label" aria-label="Schéma à contacts"></svg></div>
+      <div class="legend">
+        <span><i class="lg lg-pow"></i><span data-i18n="lad.leg.power">Flux de courant</span></span>
+        <span><i class="lg lg-true"></i><span data-i18n="lad.leg.true">Contact passant / bobine active</span></span>
+        <span><i class="lg lg-force"></i><span data-i18n="lad.leg.force">Sortie forcée</span></span>
+      </div>
+    </section>
+
+    <!-- ===== OUTPUTS ===== -->
+    <section class="panel p-outputs" aria-labelledby="h-outputs">
+      <h2 id="h-outputs"><span class="num">03</span><span data-i18n="out.title">Sorties — terrain</span></h2>
+
+      <div class="conveyor" id="conveyor" aria-hidden="true">
+        <div class="belt"><div class="boxes"><i></i><i></i><i></i></div></div>
+        <div class="rollers"><b></b><b></b></div>
+        <div class="motor"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="17"/><g class="fan"><path d="M20 20 L20 6 A14 14 0 0 1 31 13 Z"/><path d="M20 20 L32 27 A14 14 0 0 1 20 34 Z" /><path d="M20 20 L8 27 A14 14 0 0 1 9 13 Z"/></g></svg></div>
+      </div>
+
+      <div class="outputs">
+        <div class="out" data-out="Q0.0">
+          <div class="out-ico ico-motor" aria-hidden="true">M</div>
+          <div class="out-txt"><div class="dev-name" data-i18n="out.motor">Moteur convoyeur</div><div class="dev-meta mono">Q0.0 · 1L+</div></div>
+          <div class="state mono" data-state>OFF</div>
+          <div class="seg force" role="group" data-i18n-label="out.force" aria-label="Forçage">
+            <button type="button" data-force="auto" aria-pressed="true">AUTO</button><button type="button" data-force="on" aria-pressed="false">ON</button><button type="button" data-force="off" aria-pressed="false">OFF</button>
+          </div>
+        </div>
+        <div class="out" data-out="Q0.1">
+          <div class="out-ico lamp lamp-green" aria-hidden="true"></div>
+          <div class="out-txt"><div class="dev-name" data-i18n="out.run">Voyant marche</div><div class="dev-meta mono">Q0.1 · 2L+</div></div>
+          <div class="state mono" data-state>OFF</div>
+          <div class="seg force" role="group" data-i18n-label="out.force" aria-label="Forçage">
+            <button type="button" data-force="auto" aria-pressed="true">AUTO</button><button type="button" data-force="on" aria-pressed="false">ON</button><button type="button" data-force="off" aria-pressed="false">OFF</button>
+          </div>
+        </div>
+        <div class="out" data-out="Q0.2">
+          <div class="out-ico lamp lamp-red" aria-hidden="true"></div>
+          <div class="out-txt"><div class="dev-name" data-i18n="out.fault">Voyant défaut</div><div class="dev-meta mono">Q0.2 · 2L+</div></div>
+          <div class="state mono" data-state>OFF</div>
+          <div class="seg force" role="group" data-i18n-label="out.force" aria-label="Forçage">
+            <button type="button" data-force="auto" aria-pressed="true">AUTO</button><button type="button" data-force="on" aria-pressed="false">ON</button><button type="button" data-force="off" aria-pressed="false">OFF</button>
+          </div>
+        </div>
+        <div class="out" data-out="Q0.3">
+          <div class="out-ico ico-buzzer" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></div>
+          <div class="out-txt"><div class="dev-name" data-i18n="out.buzzer">Buzzer d'alarme</div><div class="dev-meta mono">Q0.3 · 2L+</div></div>
+          <div class="state mono" data-state>OFF</div>
+          <div class="seg force" role="group" data-i18n-label="out.force" aria-label="Forçage">
+            <button type="button" data-force="auto" aria-pressed="true">AUTO</button><button type="button" data-force="on" aria-pressed="false">ON</button><button type="button" data-force="off" aria-pressed="false">OFF</button>
+          </div>
+        </div>
+      </div>
+      <p class="hint" data-i18n="out.hint">Le forçage écrase le résultat du programme dans l'image des sorties — comme dans une console de programmation. Q0.0 est alimenté par 1L+, coupé par l'arrêt d'urgence ; les voyants et le buzzer par 2L+, toujours sous tension.</p>
+    </section>
+
+    <!-- ===== MULTIMETER ===== -->
+    <section class="panel p-meter" aria-labelledby="h-meter">
+      <h2 id="h-meter"><span class="num">04</span><span data-i18n="dmm.title">Multimètre — points de test</span></h2>
+      <div class="meter-wrap">
+        <div class="dmm">
+          <div class="dmm-top mono"><span>DMM-24</span><span id="dmmMode">V⎓</span></div>
+          <div class="lcd mono" dir="ltr" aria-live="polite"><span id="dmmValue">0.00</span><small id="dmmUnit">V DC</small></div>
+          <div class="dmm-probe mono" id="dmmProbe">TP1</div>
+          <div class="seg dmm-dial" role="group" data-i18n-label="dmm.mode" aria-label="Calibre">
+            <button type="button" data-dmm="vdc" aria-pressed="true">V⎓</button><button type="button" data-dmm="off" aria-pressed="false">OFF</button>
+          </div>
+          <div class="leads"><span class="lead red" data-i18n="dmm.red">Rouge → point choisi</span><span class="lead black" data-i18n="dmm.black">Noir → M (0 V)</span></div>
+        </div>
+        <div class="tps" id="testPoints" role="group" data-i18n-label="dmm.tps" aria-label="Points de test"></div>
+      </div>
+    </section>
+
+    <!-- ===== PLC MODULE + EXERCISES ===== -->
+    <section class="panel p-cpu" aria-labelledby="h-cpu">
+      <h2 id="h-cpu"><span class="num">05</span><span data-i18n="cpu.title">CPU — voyants d'état</span></h2>
+      <div class="cpu mono" dir="ltr">
+        <div class="cpu-name">CPU 1214C <small>DC/DC/DC</small></div>
+        <div class="cpu-leds">
+          <span><i class="led" id="ledRun"></i>RUN</span>
+          <span><i class="led led-y" id="ledStop"></i>STOP</span>
+          <span><i class="led led-y" id="ledForce"></i>MAINT</span>
+        </div>
+        <div class="io-row"><span class="io-lbl">DI</span><span class="io" id="ioI"></span></div>
+        <div class="io-row"><span class="io-lbl">DQ</span><span class="io" id="ioQ"></span></div>
+      </div>
+
+      <h3 data-i18n="ex.title">Exercices</h3>
+      <ol class="exercises" id="exercises">
+        <li data-ex="seal"><span data-i18n="ex.seal">Démarrez le convoyeur puis relâchez Marche : l'auto‑maintien (Q0.0 en parallèle) le garde en marche.</span></li>
+        <li data-ex="stop"><span data-i18n="ex.stop">Arrêtez‑le avec le bouton Arrêt (contact NO sur une entrée câblée NC).</span></li>
+        <li data-ex="latch"><span data-i18n="ex.latch">Pendant la marche, activez le capteur : le défaut M0.0 se verrouille, le buzzer clignote.</span></li>
+        <li data-ex="reset"><span data-i18n="ex.reset">Libérez le capteur, puis acquittez le défaut avec Arrêt.</span></li>
+        <li data-ex="measure"><span data-i18n="ex.measure">Forcez Q0.0 à ON, appuyez sur l'arrêt d'urgence et mesurez TP7 : pourquoi 0 V ?</span></li>
+      </ol>
+      <button type="button" class="btn-ghost" id="exReset" data-i18n="ex.again">Recommencer</button>
+    </section>
+
+    <!-- ===== EVENT LOG ===== -->
+    <section class="panel p-log" aria-labelledby="h-log">
+      <div class="panel-head">
+        <h2 id="h-log"><span class="num">06</span><span data-i18n="log.title">Journal des événements</span></h2>
+        <button type="button" class="btn-ghost" id="logClear" data-i18n="log.clear">Effacer</button>
+      </div>
+      <ul class="log mono" id="log" dir="ltr" aria-live="off"></ul>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap">
+  <span data-i18n="foot">Simulation pédagogique — câblage 24 V DC, adresses de type S7‑1200.</span>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/ladder.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
