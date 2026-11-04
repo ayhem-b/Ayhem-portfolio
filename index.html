@@ -17,7 +17,7 @@
 <script>
   /* Set language + direction before first paint so RTL never flashes. Text is swapped by js/i18n.js. */
   (function () {
-    var l = 'fr';
+    var l = 'en';
     try {
       var q = new URLSearchParams(location.search).get('lang'), s = localStorage.getItem('lang');
       l = /^(fr|en|ar)$/.test(q) ? q : /^(fr|en|ar)$/.test(s) ? s : 'fr';
