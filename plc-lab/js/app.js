@@ -273,6 +273,8 @@ const App = (function () {
   }
 
   /* ---------- wiring up controls ---------- */
+  const controls = {};              // field actions, shared with the 3D scene
+
   function momentary(btn, key) {
     const set = v => { if (field[key] !== v) { field[key] = v; scanLoop(); readMeter(); } };
     btn.addEventListener('pointerdown', e => { e.preventDefault(); btn.setPointerCapture(e.pointerId); set(true); });
@@ -294,6 +296,7 @@ const App = (function () {
     const setStop = momentary($('btnStop'), 'stop');
     const toggleSensor = () => { field.sensor = !field.sensor; scanLoop(); };
     const toggleEstop = () => { field.estop = !field.estop; scanLoop(); };
+    Object.assign(controls, { start: setStart, stop: setStop, sensor: toggleSensor, estop: toggleEstop });
     $('swSensor').addEventListener('click', toggleSensor);
     $('btnEstop').addEventListener('click', toggleEstop);
 
@@ -394,7 +397,17 @@ const App = (function () {
     readMeter();
   }
 
-  return { img, init };
+  /* Read-only view of the machine + the same actions as the operator panel,
+     for the 3D scene. */
+  const io = {
+    field,
+    physical,
+    sensorBlocked: sensorTerm,
+    press: (key, v) => controls[key] && controls[key](v),   // 'start' | 'stop' (momentary)
+    toggle: key => controls[key] && controls[key]()          // 'sensor' | 'estop'
+  };
+
+  return { img, io, init };
 })();
 
 App.init();
