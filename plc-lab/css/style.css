@@ -319,3 +319,11 @@ html[data-theme="light"] .btn-primary{color:#fff;}
 .pb-fb.rev{border-color:var(--yellow); background:color-mix(in srgb, var(--yellow) 10%, transparent);}
 .pb-fb.no{border-color:var(--red); background:color-mix(in srgb, var(--red) 10%, transparent);}
 .mini-dmm{margin-top:16px; padding:7px 10px; font-size:12px; background:var(--lcd-bg); color:var(--lcd-text); border-radius:4px; text-align:center;}
+
+/* ===== 3D scene ===== */
+.p-scene{margin-bottom:18px;}
+.scene{position:relative; height:clamp(320px, 52vw, 520px); border:1px solid var(--line); background:var(--bg); overflow:hidden; touch-action:none;}
+.scene canvas{display:block; width:100% !important; height:100% !important;}
+.scene.nogl{display:grid; place-items:center; padding:24px; text-align:center; color:var(--text-dim); height:auto; min-height:140px; touch-action:auto;}
+@media (max-width:600px){ .scene{height:340px;} }
+html[lang="ar"] .btn-ghost, html[lang="ar"] .btn-primary, html[lang="ar"] .chip-free{font-family:'IBM Plex Sans Arabic', sans-serif; letter-spacing:0;}

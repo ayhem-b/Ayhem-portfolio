@@ -8,6 +8,7 @@ A real-time virtual PLC workbench that runs in the browser (FR / EN / AR, light 
 - **Multimeter**: 10 test points (supply, safety-switched 1L+, every input and output terminal) with realistic readings.
 - **CPU module**: RUN/STOP switch, status LEDs and DI/DQ LEDs.
 - **Exercises** that tick themselves off, plus an event log of every bit change.
+- **3D conveyor cell** (three.js): belt, cartons dropping into a bin, motor, photo-eye, stack light with horn, operator control box and a cabinet with DI/DQ LEDs. It reads the live simulation every frame, and its Start / Stop / E-Stop buttons and photo-eye are clickable. Orbit, zoom and pan with mouse or touch.
 - **10 troubleshooting problems**: each injects a hidden fault, then you diagnose it from the measurements and pick the cause (4 choices, with an explanation once solved). Progress is saved in the browser.
 
 ## Troubleshooting problems
@@ -41,14 +42,18 @@ Q0.0 is powered from 1L+, which the E-Stop safety relay cuts; Q0.1–Q0.3 run fr
 
 ## Run it
 
-Static site, no build step and no dependencies: open `index.html`, or serve the folder (`python3 -m http.server`).
+Static site, no build step: serve the folder (`python3 -m http.server`) and open it. three.js is bundled in `vendor/`, so nothing is fetched from a CDN.
 
 ```
 index.html     page
 css/style.css  styles
 js/i18n.js     FR / EN / AR strings + language switcher
 js/ladder.js   program, ladder evaluator and SVG renderer
-js/app.js      field devices, scan loop, outputs, multimeter, exercises, log
+js/app.js      field devices, scan loop, outputs, multimeter, exercises, problems, log
+js/scene3d.js  3D conveyor cell (ES module, reads App.img / App.io)
+vendor/three/  three.js r160 + OrbitControls (MIT), loaded through an import map
 ```
+
+The 3D view needs WebGL; without it the panel shows a short notice and the rest of the workbench works as usual. Serve the folder over HTTP for the 3D view (ES modules don't load from `file://`).
 
 To change the logic, edit `makeProgram()` in `js/ladder.js`; the diagram redraws itself from it.

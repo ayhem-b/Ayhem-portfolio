@@ -125,6 +125,12 @@ const TRANSLATIONS = {
     "cause.9": "Programme : branche d'auto‑maintien manquante",
     "cause.10": "Programme : Arrêt programmé en contact NC",
 
+    "scene.title": "Cellule convoyeur — vue 3D",
+    "scene.reset": "Recentrer la vue",
+    "scene.label": "Vue 3D de la cellule convoyeur, pilotée par la simulation",
+    "scene.hint": "Faites glisser pour tourner, molette ou pincement pour zoomer. Cliquez sur Marche, Arrêt et l'arrêt d'urgence du boîtier jaune, et sur la cellule photoélectrique pour la masquer.",
+    "scene.nogl": "La vue 3D a besoin de WebGL, indisponible dans ce navigateur. Le reste de l'établi fonctionne normalement.",
+
     'foot': 'Simulation pédagogique — câblage 24 V DC, adresses de type S7‑1200.'
   },
 
@@ -251,6 +257,12 @@ const TRANSLATIONS = {
     "cause.9": "Program: seal-in branch missing",
     "cause.10": "Program: Stop programmed as an NC instruction",
 
+    "scene.title": "Conveyor cell — 3D view",
+    "scene.reset": "Reset view",
+    "scene.label": "3D view of the conveyor cell, driven by the simulation",
+    "scene.hint": "Drag to orbit, scroll or pinch to zoom. Click Start, Stop and the E‑Stop on the yellow control box, and click the photo-eye to block it.",
+    "scene.nogl": "The 3D view needs WebGL, which this browser does not provide. The rest of the workbench works normally.",
+
     'foot': 'Training simulation — 24 V DC wiring, S7‑1200‑style addresses.'
   },
 
@@ -376,6 +388,12 @@ const TRANSLATIONS = {
     "cause.8": "مصباح التشغيل محروق",
     "cause.9": "البرنامج: فرع الإمساك الذاتي مفقود",
     "cause.10": "البرنامج: الإيقاف مبرمج كتلامس مغلق عادةً",
+
+    "scene.title": "خلية الحزام الناقل — عرض ثلاثي الأبعاد",
+    "scene.reset": "إعادة ضبط العرض",
+    "scene.label": "عرض ثلاثي الأبعاد لخلية الحزام الناقل، تقوده المحاكاة",
+    "scene.hint": "اسحب للتدوير، واستعمل العجلة أو القرص بإصبعين للتكبير. انقر على التشغيل والإيقاف وتوقف الطوارئ في العلبة الصفراء، وانقر على الخلية الكهروضوئية لحجبها.",
+    "scene.nogl": "يحتاج العرض ثلاثي الأبعاد إلى WebGL غير المتوفر في هذا المتصفح. بقية منضدة العمل تعمل بشكل عادي.",
 
     'foot': 'محاكاة تعليمية — توصيل 24 فولت مستمر، عناوين بأسلوب S7‑1200.'
   }

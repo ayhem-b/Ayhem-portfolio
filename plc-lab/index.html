@@ -56,6 +56,15 @@
     <p data-i18n="intro.p">Actionnez les boutons et le capteur, mesurez les tensions au multimètre et regardez le programme Ladder s'exécuter en direct, scan après scan.</p>
   </section>
 
+  <section class="panel p-scene" aria-labelledby="h-scene">
+    <div class="panel-head">
+      <h2 id="h-scene"><span class="num">3D</span><span data-i18n="scene.title">Cellule convoyeur — vue 3D</span></h2>
+      <button type="button" class="btn-ghost" id="sceneReset" data-i18n="scene.reset">Recentrer la vue</button>
+    </div>
+    <div class="scene" id="scene3d" role="img" data-i18n-label="scene.label" aria-label="Vue 3D de la cellule convoyeur"></div>
+    <p class="hint" data-i18n="scene.hint">Faites glisser pour tourner, molette ou pincement pour zoomer. Cliquez sur Marche, Arrêt et l'arrêt d'urgence du boîtier jaune, et sur la cellule photoélectrique pour la masquer.</p>
+  </section>
+
   <section class="panel p-problems" aria-labelledby="h-problems">
     <div class="panel-head">
       <h2 id="h-problems"><span class="num">00</span><span data-i18n="pb.title">Dépannage — 10 problèmes</span></h2>
@@ -219,8 +228,12 @@
   <span data-i18n="foot">Simulation pédagogique — câblage 24 V DC, adresses de type S7‑1200.</span>
 </footer>
 
+<script type="importmap">
+  { "imports": { "three": "./vendor/three/three.module.min.js", "three/addons/": "./vendor/three/" } }
+</script>
 <script src="js/i18n.js"></script>
 <script src="js/ladder.js"></script>
 <script src="js/app.js"></script>
+<script type="module" src="js/scene3d.js"></script>
 </body>
 </html>
