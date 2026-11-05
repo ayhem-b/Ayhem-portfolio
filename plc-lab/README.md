@@ -8,6 +8,24 @@ A real-time virtual PLC workbench that runs in the browser (FR / EN / AR, light 
 - **Multimeter**: 10 test points (supply, safety-switched 1L+, every input and output terminal) with realistic readings.
 - **CPU module**: RUN/STOP switch, status LEDs and DI/DQ LEDs.
 - **Exercises** that tick themselves off, plus an event log of every bit change.
+- **10 troubleshooting problems**: each injects a hidden fault, then you diagnose it from the measurements and pick the cause (4 choices, with an explanation once solved). Progress is saved in the browser.
+
+## Troubleshooting problems
+
+| # | Hidden fault | Key evidence |
+|---|---|---|
+| 1 | Start button contact / wire open | TP3 stays 0 V while Start is held |
+| 2 | PLC input channel I0.0 dead | TP3 = 24 V but DI .0 stays off |
+| 3 | Stop circuit wire broken | TP4 = 0 V without pressing Stop |
+| 4 | Jam sensor stuck ON | TP5 ≈ 23 V with the sensor off; fault won't reset |
+| 5 | 1L+ supply lost (fuse / E-Stop relay) | TP2 = 0 V with E-Stop released |
+| 6 | PLC output channel Q0.0 dead | DQ .0 on, TP2 = 24 V, TP7 = 0 V |
+| 7 | Contactor coil / motor faulty | TP7 = 23.6 V but the belt doesn't move |
+| 8 | Running-light bulb burnt | TP8 = 23.7 V, lamp dark |
+| 9 | Program: seal-in branch deleted | Network 1 has no Q0.0 branch |
+| 10 | Program: Stop programmed NC | TP4 = 24 V, I0.1 contact open in network 1 |
+
+Faults live in `fault` in `js/app.js` (wiring, hardware and devices) and in `makeProgram()` in `js/ladder.js` (program bugs).
 
 ## Program
 
@@ -33,4 +51,4 @@ js/ladder.js   program, ladder evaluator and SVG renderer
 js/app.js      field devices, scan loop, outputs, multimeter, exercises, log
 ```
 
-To change the logic, edit `PROGRAM` in `js/ladder.js`; the diagram redraws itself from it.
+To change the logic, edit `makeProgram()` in `js/ladder.js`; the diagram redraws itself from it.

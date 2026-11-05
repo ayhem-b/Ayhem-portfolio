@@ -27,13 +27,22 @@ const P = (...branches) => ({ t: 'P', branches: branches.map(b => (b.t === 'S' ?
 const NO = addr => ({ t: 'NO', addr });
 const NC = addr => ({ t: 'NC', addr });
 
-const PROGRAM = [
-  { comment: 'rung.1', coil: 'Q0.0', logic: S(P(NO('I0.0'), NO('Q0.0')), NO('I0.1'), NO('I0.3'), NC('M0.0')) },
+/* variant: 'ok' (correct program), or a bug used by the troubleshooting problems:
+   'noseal' (seal-in branch deleted) / 'stopnc' (Stop programmed as an NC instruction). */
+function makeProgram(variant) {
+  const rung1 =
+    variant === 'noseal' ? S(NO('I0.0'), NO('I0.1'), NO('I0.3'), NC('M0.0')) :
+    variant === 'stopnc' ? S(P(NO('I0.0'), NO('Q0.0')), NC('I0.1'), NO('I0.3'), NC('M0.0')) :
+                           S(P(NO('I0.0'), NO('Q0.0')), NO('I0.1'), NO('I0.3'), NC('M0.0'));
+  return [
+  { comment: 'rung.1', coil: 'Q0.0', logic: rung1 },
   { comment: 'rung.2', coil: 'M0.0', logic: S(P(NO('I0.2'), NC('I0.3'), S(NO('M0.0'), NO('I0.1')))) },
   { comment: 'rung.3', coil: 'Q0.1', logic: S(NO('Q0.0')) },
   { comment: 'rung.4', coil: 'Q0.2', logic: S(NO('M0.0')) },
   { comment: 'rung.5', coil: 'Q0.3', logic: S(NO('M0.0'), NO('M0.1')) }
-];
+  ];
+}
+let PROGRAM = makeProgram('ok');
 
 const Ladder = (function () {
   const NS = 'http://www.w3.org/2000/svg';
@@ -196,5 +205,7 @@ const Ladder = (function () {
     for (const b of bindings) b.el.classList.toggle(b.cls, !!b.test());
   }
 
-  return { scan, render, update };
+  function load(variant, svg) { PROGRAM = makeProgram(variant); render(svg); }
+
+  return { scan, render, update, load };
 })();

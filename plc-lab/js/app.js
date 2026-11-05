@@ -7,35 +7,45 @@ const App = (function () {
   const force = {};                 // addr -> true/false
   const img = {};                   // process image: I, M, Q bits
   let running = true;               // CPU RUN / STOP
+  let fault = {};                   // hidden fault injected by a troubleshooting problem
+  let problem = 0;                  // 0 = free mode, 1..10 = active problem
   let scans = 0;
   const T0 = performance.now();
 
   /* Physical wiring → input image. Stop and E-stop are wired NC, so their
      bits are TRUE while healthy and drop to FALSE when pressed. */
+  // Voltage actually present on each input terminal (what the multimeter sees).
+  const startTerm = () => field.start && !fault.startOpen;
+  const stopTerm = () => !field.stop && !fault.stopWire;
+  const sensorTerm = () => field.sensor || !!fault.sensorStuck;
+
   function readInputs() {
-    img['I0.0'] = field.start;
-    img['I0.1'] = !field.stop;
-    img['I0.2'] = field.sensor;
+    img['I0.0'] = startTerm() && !fault.cardI0;
+    img['I0.1'] = stopTerm();
+    img['I0.2'] = sensorTerm();
     img['I0.3'] = !field.estop;
     img['M0.1'] = Math.floor((performance.now() - T0) / 500) % 2 === 1;   // 1 Hz system clock
   }
 
   // 1L+ (motor contactor) goes through the E-stop safety relay; 2L+ (lamps, buzzer) stays live.
-  const supply1 = () => !field.estop;
-  const physical = q => !!img[q] && (q === 'Q0.0' ? supply1() : true);
+  const supply1 = () => !field.estop && !fault.fuse1L;
+  // 24 V present on the output terminal…
+  const outV = q => !!img[q] && (q === 'Q0.0' ? supply1() && !fault.q0Dead : true);
+  // …and whether the device on it actually works.
+  const physical = q => outV(q) && !(q === 'Q0.0' && fault.coilOpen) && !(q === 'Q0.1' && fault.bulb);
 
   /* ---------- multimeter ---------- */
   const TPS = [
     ['TP1', 'tp.1', 'L+',    () => 24.0],
     ['TP2', 'tp.2', '1L+',   () => supply1() ? 23.9 : 0],
-    ['TP3', 'tp.3', 'I0.0',  () => field.start ? 24.0 : 0],
-    ['TP4', 'tp.4', 'I0.1',  () => field.stop ? 0 : 24.0],
-    ['TP5', 'tp.5', 'I0.2',  () => field.sensor ? 23.2 : 0],
+    ['TP3', 'tp.3', 'I0.0',  () => startTerm() ? 24.0 : 0],
+    ['TP4', 'tp.4', 'I0.1',  () => stopTerm() ? 24.0 : 0],
+    ['TP5', 'tp.5', 'I0.2',  () => sensorTerm() ? 23.2 : 0],
     ['TP6', 'tp.6', 'I0.3',  () => field.estop ? 0 : 24.0],
-    ['TP7', 'tp.7', 'Q0.0',  () => physical('Q0.0') ? 23.6 : 0],
-    ['TP8', 'tp.8', 'Q0.1',  () => physical('Q0.1') ? 23.7 : 0],
-    ['TP9', 'tp.9', 'Q0.2',  () => physical('Q0.2') ? 23.7 : 0],
-    ['TP10', 'tp.10', 'Q0.3', () => physical('Q0.3') ? 23.7 : 0]
+    ['TP7', 'tp.7', 'Q0.0',  () => outV('Q0.0') ? 23.6 : 0],
+    ['TP8', 'tp.8', 'Q0.1',  () => outV('Q0.1') ? 23.7 : 0],
+    ['TP9', 'tp.9', 'Q0.2',  () => outV('Q0.2') ? 23.7 : 0],
+    ['TP10', 'tp.10', 'Q0.3', () => outV('Q0.3') ? 23.7 : 0]
   ];
   let tp = 0, dmmOn = true;
 
@@ -62,10 +72,11 @@ const App = (function () {
   function readMeter() {
     const [id, , term, fn] = TPS[tp];
     $('dmmProbe').textContent = `${id} · ${term}`;
-    if (!dmmOn) { $('dmmValue').textContent = ''; $('dmmUnit').textContent = ''; $('dmmMode').textContent = 'OFF'; return; }
+    if (!dmmOn) { $('dmmValue').textContent = ''; $('dmmUnit').textContent = ''; $('dmmMode').textContent = 'OFF'; $('miniDmm').textContent = 'DMM OFF'; return; }
     const v = fn();
     const noisy = v === 0 ? Math.random() * 0.012 : v + (Math.random() - 0.5) * 0.04;
     $('dmmValue').textContent = noisy.toFixed(2);
+    $('miniDmm').textContent = `DMM ${id} (${term}) = ${noisy.toFixed(2)} V`;
     $('dmmUnit').textContent = 'V DC';
     $('dmmMode').textContent = 'V⎓';
     document.querySelectorAll('#testPoints .tp-v').forEach((s, i) => { s.textContent = TPS[i][3]().toFixed(1) + ' V'; });
@@ -101,6 +112,7 @@ const App = (function () {
   }
   let prev = {};
   function checkExercises() {
+    if (problem) { prev = {}; return; }   // exercises assume a healthy machine
     const q0 = img['Q0.0'], m0 = img['M0.0'];
     if (running && q0 && !field.start && !('Q0.0' in force)) complete('seal');
     if (prev.q0 && !q0 && field.stop && !m0 && !('Q0.0' in force)) complete('stop');
@@ -145,8 +157,7 @@ const App = (function () {
       row.classList.toggle('on', on);
       row.classList.toggle('forced', q in force && running);
       const st = row.querySelector('[data-state]');
-      st.textContent = img[q] && !on ? 'ON · 0 V' : on ? 'ON' : 'OFF';
-      st.classList.toggle('dead', !!img[q] && !on);
+      st.textContent = on ? 'ON' : 'OFF';
     });
     $('conveyor').classList.toggle('running', physical('Q0.0'));
 
@@ -167,9 +178,103 @@ const App = (function () {
     paint();
   }
 
+  /* ---------- troubleshooting problems ----------
+     Each one injects a hidden fault (wiring, PLC hardware, field device or
+     program). The learner measures, then picks the cause among 4 options. */
+  const PROBLEMS = [
+    { f: { startOpen: 1 },  opts: ['c1', 'c2', 'c3', 'c10'], ans: 'c1' },
+    { f: { cardI0: 1 },     opts: ['c2', 'c1', 'c9', 'c3'],  ans: 'c2' },
+    { f: { stopWire: 1 },   opts: ['c3', 'c10', 'c1', 'c4'], ans: 'c3' },
+    { f: { sensorStuck: 1 },opts: ['c4', 'c3', 'c5', 'c2'],  ans: 'c4' },
+    { f: { fuse1L: 1 },     opts: ['c5', 'c6', 'c7', 'c8'],  ans: 'c5' },
+    { f: { q0Dead: 1 },     opts: ['c6', 'c5', 'c7', 'c3'],  ans: 'c6' },
+    { f: { coilOpen: 1 },   opts: ['c7', 'c6', 'c5', 'c8'],  ans: 'c7' },
+    { f: { bulb: 1 },       opts: ['c8', 'c6', 'c7', 'c9'],  ans: 'c8' },
+    { prog: 'noseal',       opts: ['c9', 'c1', 'c2', 'c10'], ans: 'c9' },
+    { prog: 'stopnc',       opts: ['c10', 'c3', 'c1', 'c2'], ans: 'c10' }
+  ];
+  let solved = {};
+  try { solved = JSON.parse(localStorage.getItem('plclab.pb') || '{}') || {}; } catch (e) {}
+  const pbState = { choice: null, result: null, revealed: false };
+
+  // stable shuffle so the right answer is not always first
+  const order = (opts, n) => opts.map((o, i) => [((i + 1) * (n + 1)) % 13, o]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+
+  function resetBench() {
+    field.start = field.stop = field.sensor = field.estop = false;
+    for (const k of Object.keys(force)) delete force[k];
+    document.querySelectorAll('.out [data-force]').forEach(b => b.setAttribute('aria-pressed', b.dataset.force === 'auto' ? 'true' : 'false'));
+    running = true;
+    document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', x.dataset.mode === 'run' ? 'true' : 'false'));
+    for (const k of Object.keys(img)) img[k] = false;
+  }
+
+  function loadProblem(n) {
+    problem = n;
+    const pb = PROBLEMS[n - 1];
+    resetBench();
+    fault = pb ? { ...pb.f } : {};
+    Ladder.load(pb && pb.prog ? pb.prog : 'ok', $('ladder'));
+    pbState.choice = null; pbState.result = null; pbState.revealed = false;
+    log(n ? `${t('pb.log')} ${n}/10` : t('pb.free'), 'm');
+    scanLoop();
+    renderProblems();
+  }
+
+  function renderProblems() {
+    const n = problem, pb = PROBLEMS[n - 1];
+    const count = Object.keys(solved).length;
+    $('pbScore').textContent = `${count}/10`;
+    $('pbChips').innerHTML =
+      `<button type="button" class="chip chip-free" data-pb="0" aria-pressed="${n === 0}">${t('pb.free')}</button>` +
+      PROBLEMS.map((_, i) => `<button type="button" class="chip${solved[i + 1] ? ' solved' : ''}" data-pb="${i + 1}" aria-pressed="${n === i + 1}" aria-label="${t('pb.label')} ${i + 1}${solved[i + 1] ? ' ✓' : ''}">${i + 1}</button>`).join('');
+    $('pbChips').querySelectorAll('[data-pb]').forEach(b => b.addEventListener('click', () => loadProblem(+b.dataset.pb)));
+
+    const card = $('pbCard');
+    if (!pb) {
+      card.innerHTML = `<p class="pb-intro">${t('pb.intro')}</p>`;
+      return;
+    }
+    const opts = order(pb.opts, n).map(c =>
+      `<label class="opt"><input type="radio" name="pbopt" value="${c}"${pbState.choice === c ? ' checked' : ''}><span>${t('cause.' + c.slice(1))}</span></label>`).join('');
+    let fb = '';
+    if (pbState.result === 'ok' || pbState.revealed) {
+      fb = `<div class="pb-fb ${pbState.result === 'ok' ? 'ok' : 'rev'}"><b>${t(pbState.result === 'ok' ? 'pb.ok' : 'pb.answer')}</b> ${pbState.revealed ? t('cause.' + pb.ans.slice(1)) + '. ' : ''}${t('pb.' + n + '.exp')}</div>`;
+    } else if (pbState.result === 'no') {
+      fb = `<div class="pb-fb no">${t('pb.no')}</div>`;
+    }
+    card.innerHTML = `
+      <div class="pb-label mono">${t('pb.label')} ${n}/10</div>
+      <blockquote class="pb-sym">${t('pb.' + n + '.sym')}</blockquote>
+      <p class="pb-tip">${t('pb.tip')}</p>
+      <fieldset class="opts"><legend>${t('pb.q')}</legend>${opts}</fieldset>
+      <div class="pb-actions">
+        <button type="button" class="btn-primary" id="pbCheck">${t('pb.check')}</button>
+        <button type="button" class="btn-ghost" id="pbReveal">${t('pb.reveal')}</button>
+        <button type="button" class="btn-ghost" id="pbRestart">${t('pb.restart')}</button>
+        ${n < 10 ? `<button type="button" class="btn-ghost" id="pbNext">${t('pb.next')} →</button>` : ''}
+      </div>
+      <div aria-live="polite">${fb}</div>`;
+    card.querySelectorAll('input[name="pbopt"]').forEach(r => r.addEventListener('change', () => { pbState.choice = r.value; }));
+    $('pbCheck').addEventListener('click', () => {
+      if (!pbState.choice) return;
+      pbState.result = pbState.choice === pb.ans ? 'ok' : 'no';
+      if (pbState.result === 'ok') {
+        solved[n] = true;
+        try { localStorage.setItem('plclab.pb', JSON.stringify(solved)); } catch (e) {}
+        log(`${t('pb.label')} ${n}/10 ✓`, 'ok');
+      }
+      renderProblems();
+    });
+    $('pbReveal').addEventListener('click', () => { pbState.revealed = true; renderProblems(); });
+    $('pbRestart').addEventListener('click', () => loadProblem(n));
+    const next = $('pbNext');
+    if (next) next.addEventListener('click', () => loadProblem(n + 1));
+  }
+
   /* ---------- wiring up controls ---------- */
   function momentary(btn, key) {
-    const set = v => { if (field[key] !== v) { field[key] = v; scanLoop(); } };
+    const set = v => { if (field[key] !== v) { field[key] = v; scanLoop(); readMeter(); } };
     btn.addEventListener('pointerdown', e => { e.preventDefault(); btn.setPointerCapture(e.pointerId); set(true); });
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(ev => btn.addEventListener(ev, () => set(false)));
     btn.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) { e.preventDefault(); set(true); } });
@@ -266,7 +371,13 @@ const App = (function () {
       paintExercises();
     });
 
-    document.addEventListener('langchange', () => { Ladder.render($('ladder')); readMeter(); });
+    document.addEventListener('langchange', () => { Ladder.render($('ladder')); readMeter(); renderProblems(); });
+    $('pbResetAll').addEventListener('click', () => {
+      solved = {};
+      try { localStorage.removeItem('plclab.pb'); } catch (e) {}
+      renderProblems();
+    });
+    renderProblems();
 
     Ladder.render($('ladder'));
     paintExercises();

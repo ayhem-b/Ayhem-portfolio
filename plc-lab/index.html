@@ -56,6 +56,15 @@
     <p data-i18n="intro.p">Actionnez les boutons et le capteur, mesurez les tensions au multimètre et regardez le programme Ladder s'exécuter en direct, scan après scan.</p>
   </section>
 
+  <section class="panel p-problems" aria-labelledby="h-problems">
+    <div class="panel-head">
+      <h2 id="h-problems"><span class="num">00</span><span data-i18n="pb.title">Dépannage — 10 problèmes</span></h2>
+      <div class="pb-head-r"><span class="pb-score mono" id="pbScore">0/10</span><button type="button" class="btn-ghost" id="pbResetAll" data-i18n="pb.resetall">Réinitialiser</button></div>
+    </div>
+    <div class="pb-chips" id="pbChips" role="group" data-i18n-label="pb.title" aria-label="Problèmes"></div>
+    <div class="pb-card" id="pbCard"></div>
+  </section>
+
   <div class="grid">
     <!-- ===== FIELD INPUTS ===== -->
     <section class="panel p-inputs" aria-labelledby="h-inputs">
@@ -82,6 +91,7 @@
           <div class="dev-meta mono">I0.3 · NC <kbd>4</kbd></div>
         </div>
       </div>
+      <div class="mini-dmm mono" id="miniDmm" dir="ltr" aria-hidden="true">DMM</div>
       <p class="hint" data-i18n="in.hint">Marche et Arrêt sont à impulsion : maintenez‑les enfoncés. Le capteur bascule. L'arrêt d'urgence reste verrouillé jusqu'au déverrouillage.</p>
     </section>
 
