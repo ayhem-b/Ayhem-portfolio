@@ -1,5 +1,9 @@
 # Ayhem Belkhamsa - Portfolio
 
+**Live: https://ayhem-b.github.io/Ayhem-portfolio/** — French by default, with English and Arabic (RTL) and a light/dark theme.
+
+<p align="center"><img src="assets/images/vision-inspection-reel-poster.jpg" alt="Vision inspection station" width="640"></p>
+
 Portfolio site for my industrial automation and machine-building work in northern Tunisia (Bizerte, Menzel Bourguiba and surrounding industrial hubs).
 
 Static site: plain HTML, CSS and a little JavaScript. No build step, no dependencies.
